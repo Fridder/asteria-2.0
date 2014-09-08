@@ -77,8 +77,10 @@ public class HostGateway {
         }
 
         // Otherwise, replace the key with the next value if it was present.
-        logger.info("Session request from " + host + "<" + hostMap.put(host,
-            amount + 1) + "> accepted.");
+        int last = hostMap.put(host,
+            amount + 1) + 1;
+        
+        logger.info("Session request from " + host + "<" + last + "> accepted.");
         return true;
     }
 
