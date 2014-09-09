@@ -61,7 +61,7 @@ public final class ServerEngine {
 
         // ... and configure them!
         server.configureBlocking(false);
-        server.socket().bind(new InetSocketAddress("127.0.0.1", 43594));
+        server.socket().bind(new InetSocketAddress(43594));
         server.register(selector, SelectionKey.OP_ACCEPT);
     }
 
