@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 /**
  * Utility methods to manage stored pending and active tasks. The functions in
@@ -106,11 +107,9 @@ public final class TaskManager {
      *            the key that tasks will be retrieved with.
      * @return a list of tasks with this bound key.
      */
-    public static LinkedList<Task> retrieveTasks(Object key) {
-        LinkedList<Task> tasks = new LinkedList<>();
-        activeTasks.stream().filter(t -> t.getKey().equals(key)).forEach(
-            t -> tasks.add(t));
-        return tasks;
+    public static List<Task> retrieveTasks(Object key) {
+        return activeTasks.stream().filter(t -> t.getKey().equals(key)).collect(
+            Collectors.toList());
     }
 
     /**
