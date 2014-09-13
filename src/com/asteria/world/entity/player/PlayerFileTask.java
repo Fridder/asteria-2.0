@@ -72,17 +72,21 @@ public final class PlayerFileTask {
                 Path path = Paths.get(DIR, player.getUsername() + ".json");
                 File file = path.toFile();
 
+                //Make the player saves directory if it doesn't exist
+				if (!file.getParentFile().exists())	{
+					file.getParentFile().mkdirs();
+				}
+
+
                 try (FileWriter writer = new FileWriter(file)) {
 
-                    // Check if the file exists before saving it.
-                    if (!file.exists()) {
-                        if (!file.createNewFile()) {
-                            logger
-                                .severe("Unable to create save file for player: " + player);
-                            return;
-                        }
-                    }
-
+				// Check if the file exists before saving it.
+				if (!file.exists())	{
+					if (!file.createNewFile())	{
+						logger.severe("Unable to create save file for player: " + player);
+						return;
+					}
+				}
                     // Now add the properties to the json parser.
                     Gson builder = new GsonBuilder().setPrettyPrinting()
                         .create();
