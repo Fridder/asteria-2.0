@@ -228,7 +228,7 @@ public class PlayerDeath extends EntityDeath<Player> {
 
             // Keep whatever items were added to the cache, along with the items
             // kept on death.
-            entity.getInventory().add(keepItems);
+            entity.getInventory().addAll(Arrays.asList(keepItems));
 
             // And drop the ones that weren't.
             for (Item item : items) {

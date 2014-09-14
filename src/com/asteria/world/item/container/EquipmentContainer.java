@@ -24,7 +24,7 @@ import com.asteria.world.item.ItemContainer;
 public class EquipmentContainer extends ItemContainer {
 
     /** The player's equipment being managed. */
-    private Player player;
+    private final Player player;
 
     /**
      * Create a new {@link EquipmentContainer}.

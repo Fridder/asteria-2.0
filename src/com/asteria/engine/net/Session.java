@@ -5,6 +5,7 @@ import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import com.asteria.engine.net.packet.PacketEncoder;
@@ -394,7 +395,8 @@ public final class Session {
             // Send the starter package and makeover mage interface if this
             // player is new.
             if (player.isNewPlayer()) {
-                player.getInventory().add(Player.STARTER_PACKAGE);
+                player.getInventory().addAll(
+                    Arrays.asList(Player.STARTER_PACKAGE));
                 packetBuilder.sendInterface(3559);
                 player.setNewPlayer(false);
             }

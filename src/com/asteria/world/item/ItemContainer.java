@@ -20,13 +20,13 @@ import com.asteria.world.entity.player.Player;
 public class ItemContainer extends AbstractCollection<Item> {
 
     /** The maximum amount of items that can be put into this container. */
-    private int capacity;
+    private final int capacity;
 
     /** The array of items in this container. */
     private Item[] items;
 
     /** The policy of this container */
-    private Policy policy;
+    private final Policy policy;
 
     /**
      * A set of constants that define how items will be stacked in this
@@ -79,14 +79,12 @@ public class ItemContainer extends AbstractCollection<Item> {
      *         the call, <code>false</code> otherwise.
      */
     public boolean add(Item item, int slot) {
-        if (item == null || item.getId() < 1 || item.getAmount() < 1 || item
-            .getAmount() > Integer.MAX_VALUE) {
+        if (item == null || item.getId() < 1 || item.getAmount() < 1 || item.getAmount() > Integer.MAX_VALUE) {
             return false;
         }
 
         int newSlot = (slot > -1) ? slot : getFreeSlot();
-        if ((item.getDefinition().isStackable() || policy
-            .equals(Policy.STACK_ALWAYS)) && !policy.equals(Policy.STACK_NEVER)) {
+        if ((item.getDefinition().isStackable() || policy.equals(Policy.STACK_ALWAYS)) && !policy.equals(Policy.STACK_NEVER)) {
             if (totalAmount(item.getId()) > 0) {
                 newSlot = getSlot(item.getId());
             }
@@ -114,8 +112,7 @@ public class ItemContainer extends AbstractCollection<Item> {
         }
 
         int remainingSlots = getRemainingSlots();
-        if (item.getAmount() > remainingSlots && !item.getDefinition()
-            .isStackable()) {
+        if (item.getAmount() > remainingSlots && !item.getDefinition().isStackable()) {
             item.setAmount(remainingSlots);
         }
 
@@ -137,12 +134,10 @@ public class ItemContainer extends AbstractCollection<Item> {
      *         the call, <code>false</code> otherwise.
      */
     public boolean remove(Item item, int slot) {
-        if (item == null || item.getId() < 1 || item.getAmount() < 1 || item
-            .getAmount() > Integer.MAX_VALUE) {
+        if (item == null || item.getId() < 1 || item.getAmount() < 1 || item.getAmount() > Integer.MAX_VALUE) {
             return false;
         }
-        if ((item.getDefinition().isStackable() || policy
-            .equals(Policy.STACK_ALWAYS)) && !policy.equals(Policy.STACK_NEVER)) {
+        if ((item.getDefinition().isStackable() || policy.equals(Policy.STACK_ALWAYS)) && !policy.equals(Policy.STACK_NEVER)) {
             int slotHolder = getSlot(item.getId());
             Item stack = get(slotHolder);
             if (stack == null) {
@@ -539,8 +534,7 @@ public class ItemContainer extends AbstractCollection<Item> {
 
         Item $item = (Item) o;
         return Arrays.stream(items).filter(Objects::nonNull).anyMatch(
-            item -> item.getId() == $item.getId() && item.getAmount() >= $item
-                .getAmount());
+            item -> item.getId() == $item.getId() && item.getAmount() >= $item.getAmount());
     }
 
     @Override
@@ -550,8 +544,7 @@ public class ItemContainer extends AbstractCollection<Item> {
 
     @Override
     public int size() {
-        return Arrays.stream(items).filter(Objects::nonNull)
-            .mapToInt(item -> 1).sum();
+        return Arrays.stream(items).filter(Objects::nonNull).mapToInt(item -> 1).sum();
     }
 
     @Override

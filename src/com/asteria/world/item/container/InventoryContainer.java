@@ -1,7 +1,5 @@
 package com.asteria.world.item.container;
 
-import java.util.Arrays;
-
 import com.asteria.world.entity.player.Player;
 import com.asteria.world.item.Item;
 import com.asteria.world.item.ItemContainer;
@@ -15,7 +13,7 @@ import com.asteria.world.item.ItemContainer;
 public class InventoryContainer extends ItemContainer {
 
     /** The player's inventory being managed. */
-    private Player player;
+    private final Player player;
 
     /**
      * Create a new {@link InventoryContainer}.
@@ -26,26 +24,6 @@ public class InventoryContainer extends ItemContainer {
     public InventoryContainer(Player player) {
         super(Policy.NORMAL, 28);
         this.player = player;
-    }
-
-    /**
-     * Adds an array of items into the inventory.
-     * 
-     * @param items
-     *            the items to add to this inventory.
-     */
-    public void add(Item... items) {
-        Arrays.stream(items).forEach(item -> add(item));
-    }
-
-    /**
-     * Removes an array of items from the inventory.
-     * 
-     * @param items
-     *            the items to remove from this inventory.
-     */
-    public void remove(Item... items) {
-        Arrays.stream(items).forEach(item -> remove(item));
     }
 
     /** Refreshes the contents of this container to the inventory. */

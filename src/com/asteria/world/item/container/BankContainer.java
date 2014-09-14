@@ -15,7 +15,7 @@ import com.asteria.world.item.ItemContainer;
 public class BankContainer extends ItemContainer {
 
     /** The player's bank being managed. */
-    private Player player;
+    private final Player player;
 
     /**
      * Create a new {@link BankContainer}.
@@ -84,8 +84,8 @@ public class BankContainer extends ItemContainer {
      *         the call, <code>false</code> otherwise.
      */
     public boolean deposit(Item item) {
-        item.setId(item.getDefinition().isNoted() ? item.getDefinition()
-            .getUnNotedId() : item.getId());
+        item.setId(item.getDefinition().isNoted() ? item.getDefinition().getUnNotedId()
+            : item.getId());
         int slot = getFreeSlot();
         boolean contains = contains(item.getId());
 
@@ -95,8 +95,8 @@ public class BankContainer extends ItemContainer {
             return false;
         }
 
-        int itemId = item.getDefinition().isNoted() ? item.getDefinition()
-            .getUnNotedId() : item.getId();
+        int itemId = item.getDefinition().isNoted() ? item.getDefinition().getUnNotedId()
+            : item.getId();
 
         if (!contains) {
             return super.add(new Item(itemId, item.getAmount()), slot);
@@ -134,23 +134,19 @@ public class BankContainer extends ItemContainer {
             item.setAmount(withdrawAmount);
         }
 
-        if (item.getAmount() > player.getInventory().getRemainingSlots() && !item
-            .getDefinition().isStackable() && !player.isWithdrawAsNote()) {
+        if (item.getAmount() > player.getInventory().getRemainingSlots() && !item.getDefinition().isStackable() && !player.isWithdrawAsNote()) {
             item.setAmount(player.getInventory().getRemainingSlots());
         }
 
-        if (!item.getDefinition().isStackable() && !item.getDefinition()
-            .isNoted() && !player.isWithdrawAsNote()) {
+        if (!item.getDefinition().isStackable() && !item.getDefinition().isNoted() && !player.isWithdrawAsNote()) {
             if (player.getInventory().getRemainingSlots() < item.getAmount()) {
                 player.getPacketBuilder().sendMessage(
                     "You do not have enough space in your inventory!");
                 return false;
             }
         } else {
-            if (player.getInventory().getRemainingSlots() < 1 && !player
-                .getInventory().contains(
-                    !player.isWithdrawAsNote() ? item.getId()
-                        : item.getId() + 1)) {
+            if (player.getInventory().getRemainingSlots() < 1 && !player.getInventory().contains(
+                !player.isWithdrawAsNote() ? item.getId() : item.getId() + 1)) {
                 player.getPacketBuilder().sendMessage(
                     "You do not have enough space in your inventory!");
                 return false;
@@ -196,6 +192,15 @@ public class BankContainer extends ItemContainer {
         return withdraw(getSlot(item.getId()), item.getAmount(), addItem);
     }
 
+    @Override
+    public boolean addAll(Collection<? extends Item> c) {
+        boolean mod = false;
+        for (Item it : c)
+            if (deposit(it))
+                mod = true;
+        return mod;
+    }
+
     /**
      * This method is not supported by this container implementation. It will
      * always throw an {@link UnsupportedOperationException}.
@@ -212,16 +217,6 @@ public class BankContainer extends ItemContainer {
      */
     @Override
     public final boolean add(Item item) {
-        throw new UnsupportedOperationException(
-            "This method is not supported by this container implementation.");
-    }
-
-    /**
-     * This method is not supported by this container implementation. It will
-     * always throw an {@link UnsupportedOperationException}.
-     */
-    @Override
-    public final boolean addAll(Collection<? extends Item> c) {
         throw new UnsupportedOperationException(
             "This method is not supported by this container implementation.");
     }
