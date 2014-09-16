@@ -154,9 +154,9 @@ public class DecodeItemInterfacePacket extends PacketDecoder {
                     amount = player.getBank().totalAmount(itemId);
                 } else {
                     Item itemWithdrew = new Item(itemId, 1);
-                    amount = ItemDefinition.getDefinitions()[itemWithdrew
-                        .getId()].isStackable() ? player.getBank().totalAmount(
-                        itemId) : 28;
+                    amount = ItemDefinition.getDefinitions()[itemWithdrew.getId()].isStackable() ? player.getBank().totalAmount(
+                        itemId)
+                        : 28;
                 }
 
                 player.getBank().withdraw(slot, amount, true);
@@ -171,15 +171,15 @@ public class DecodeItemInterfacePacket extends PacketDecoder {
                     new Item(itemId, 10), slot);
                 break;
             case 3322:
-                player.getTradeSession()
-                    .offer(
-                        new Item(itemId, player.getInventory().totalAmount(
-                            itemId)), slot);
+                player.getTradeSession().offer(
+                    new Item(itemId, player.getInventory().totalAmount(itemId)),
+                    slot);
                 break;
             case 3415:
                 player.getTradeSession().unoffer(
-                    new Item(itemId, player.getTradeSession().getOffering()
-                        .totalAmount(itemId)));
+                    new Item(itemId,
+                        player.getTradeSession().getOffering().totalAmount(
+                            itemId)));
                 break;
             }
 

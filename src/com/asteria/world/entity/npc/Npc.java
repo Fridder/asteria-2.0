@@ -5,8 +5,8 @@ import com.asteria.world.World;
 import com.asteria.world.entity.Entity;
 import com.asteria.world.entity.Hit;
 import com.asteria.world.entity.combat.CombatFactory;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
 import com.asteria.world.entity.combat.CombatStrategy;
+import com.asteria.world.entity.combat.CombatType;
 import com.asteria.world.entity.combat.effect.CombatPoisonEffect.PoisonType;
 import com.asteria.world.entity.npc.NpcMovementCoordinator.Coordinator;
 import com.asteria.world.map.Position;
@@ -150,11 +150,10 @@ public class Npc extends Entity {
     @Override
     public void poisonVictim(Entity victim, CombatType type) {
         if (getDefinition().isPoisonous()) {
-            CombatFactory
-                .poisonEntity(
-                    victim,
-                    type == CombatType.RANGED || type == CombatType.MAGIC ? PoisonType.MILD
-                        : PoisonType.EXTRA);
+            CombatFactory.poisonEntity(
+                victim,
+                type == CombatType.RANGED || type == CombatType.MAGIC ? PoisonType.MILD
+                    : PoisonType.EXTRA);
         }
     }
 
@@ -194,16 +193,15 @@ public class Npc extends Entity {
             @Override
             public void load(JsonObject reader, Gson builder) {
                 int id = reader.get("npc-id").getAsInt();
-                Position position = builder.fromJson(reader.get("position")
-                    .getAsJsonObject(), Position.class);
+                Position position = builder.fromJson(
+                    reader.get("position").getAsJsonObject(), Position.class);
                 Coordinator coordinator = builder.fromJson(reader.get(
                     "walking-policy").getAsJsonObject(), Coordinator.class);
 
                 if (coordinator.isCoordinate() && coordinator.getRadius() == 0) {
                     throw new IllegalStateException(
                         "Radius must be higher than 0 when coordinator is active!");
-                } else if (!coordinator.isCoordinate() && coordinator
-                    .getRadius() > 0) {
+                } else if (!coordinator.isCoordinate() && coordinator.getRadius() > 0) {
                     throw new IllegalStateException(
                         "Radius must be 0 when coordinator is inactive!");
                 }

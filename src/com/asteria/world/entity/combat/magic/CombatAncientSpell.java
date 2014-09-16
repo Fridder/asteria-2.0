@@ -59,10 +59,8 @@ public abstract class CombatAncientSpell extends CombatSpell {
             }
 
             if (next.getPosition().withinDistance(castOn.getPosition(),
-                spellRadius()) && !next.equals(cast) && !next.equals(castOn) && next
-                .getCurrentHealth() > 0 && !next.isDead()) {
-                cast.getCurrentlyCasting().endGraphic()
-                    .ifPresent(next::graphic);
+                spellRadius()) && !next.equals(cast) && !next.equals(castOn) && next.getCurrentHealth() > 0 && !next.isDead()) {
+                cast.getCurrentlyCasting().endGraphic().ifPresent(next::graphic);
                 int calc = Utility.inclusiveRandom(0, maximumHit());
                 next.dealDamage(new Hit(calc));
                 next.getCombatBuilder().addDamage(cast, calc);

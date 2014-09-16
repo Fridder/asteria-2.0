@@ -15,7 +15,7 @@ import com.asteria.world.entity.Hit;
 import com.asteria.world.entity.Projectile;
 import com.asteria.world.entity.combat.CombatContainer;
 import com.asteria.world.entity.combat.CombatFactory;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
+import com.asteria.world.entity.combat.CombatType;
 import com.asteria.world.entity.player.Player;
 import com.asteria.world.entity.player.content.WeaponInterfaces.WeaponInterface;
 import com.asteria.world.entity.player.skill.Skills;
@@ -74,16 +74,14 @@ public enum CombatSpecial {
         public CombatContainer container(Player player, Entity target) {
             player.animation(new Animation(426));
             player.highGraphic(new Graphic(250));
-            new Projectile(player, target, 249, 44, 3, 43, 31, 0)
-                .sendProjectile();
+            new Projectile(player, target, 249, 44, 3, 43, 31, 0).sendProjectile();
 
             TaskManager.submit(new Task(1, false) {
                 @Override
                 public void execute() {
                     player.animation(new Animation(426));
                     player.highGraphic(new Graphic(250));
-                    new Projectile(player, target, 249, 44, 3, 43, 31, 0)
-                        .sendProjectile();
+                    new Projectile(player, target, 249, 44, 3, 43, 31, 0).sendProjectile();
                     this.cancel();
                 }
             });
@@ -97,8 +95,7 @@ public enum CombatSpecial {
         public CombatContainer container(Player player, Entity target) {
             player.animation(new Animation(426));
             player.highGraphic(new Graphic(250));
-            new Projectile(player, target, 249, 44, 3, 43, 31, 0)
-                .sendProjectile();
+            new Projectile(player, target, 249, 44, 3, 43, 31, 0).sendProjectile();
 
             return new CombatContainer(player, target, 1, CombatType.RANGED,
                 true);
@@ -110,16 +107,11 @@ public enum CombatSpecial {
             player.graphic(new Graphic(246));
             player.animation(new Animation(1056));
             player.forceChat("Raarrrrrgggggghhhhhhh!");
-            player.getSkills()[Skills.STRENGTH].increaseLevel((int) (player
-                .getSkills()[Skills.STRENGTH].getLevelForExperience() * 0.2));
-            player.getSkills()[Skills.ATTACK].decreaseLevel((int) (player
-                .getSkills()[Skills.ATTACK].getLevelForExperience() * 0.1));
-            player.getSkills()[Skills.DEFENCE].decreaseLevel((int) (player
-                .getSkills()[Skills.DEFENCE].getLevelForExperience() * 0.1));
-            player.getSkills()[Skills.RANGED].decreaseLevel((int) (player
-                .getSkills()[Skills.RANGED].getLevelForExperience() * 0.1));
-            player.getSkills()[Skills.MAGIC].decreaseLevel((int) (player
-                .getSkills()[Skills.MAGIC].getLevelForExperience() * 0.1));
+            player.getSkills()[Skills.STRENGTH].increaseLevel((int) (player.getSkills()[Skills.STRENGTH].getLevelForExperience() * 0.2));
+            player.getSkills()[Skills.ATTACK].decreaseLevel((int) (player.getSkills()[Skills.ATTACK].getLevelForExperience() * 0.1));
+            player.getSkills()[Skills.DEFENCE].decreaseLevel((int) (player.getSkills()[Skills.DEFENCE].getLevelForExperience() * 0.1));
+            player.getSkills()[Skills.RANGED].decreaseLevel((int) (player.getSkills()[Skills.RANGED].getLevelForExperience() * 0.1));
+            player.getSkills()[Skills.MAGIC].decreaseLevel((int) (player.getSkills()[Skills.MAGIC].getLevelForExperience() * 0.1));
             Skills.refresh(player, Skills.STRENGTH);
             Skills.refresh(player, Skills.ATTACK);
             Skills.refresh(player, Skills.DEFENCE);
@@ -146,12 +138,9 @@ public enum CombatSpecial {
                 @Override
                 public void onHit(int damage, boolean accurate) {
                     if (target.type() == EntityType.PLAYER) {
-                        target.getMovementQueue()
-                            .walk(
-                                Utility.DIRECTION_DELTA_X[player
-                                    .getLastDirection()],
-                                Utility.DIRECTION_DELTA_Y[player
-                                    .getLastDirection()]);
+                        target.getMovementQueue().walk(
+                            Utility.DIRECTION_DELTA_X[player.getLastDirection()],
+                            Utility.DIRECTION_DELTA_Y[player.getLastDirection()]);
                     }
                     target.graphic(new Graphic(80));
 
@@ -196,11 +185,9 @@ public enum CombatSpecial {
                 @Override
                 public void onHit(int damage, boolean accurate) {
                     if (Location.inMultiCombat(player)) {
-                        Optional<Set<? extends Entity>> localEntities = Optional
-                            .empty();
+                        Optional<Set<? extends Entity>> localEntities = Optional.empty();
                         if (target.type() == EntityType.PLAYER) {
-                            localEntities = Optional.of(player
-                                .getLocalPlayers());
+                            localEntities = Optional.of(player.getLocalPlayers());
                         } else if (target.type() == EntityType.NPC) {
                             localEntities = Optional.of(player.getLocalNpcs());
                         }
@@ -211,9 +198,7 @@ public enum CombatSpecial {
                             }
 
                             if (e.getPosition().withinDistance(
-                                target.getPosition(), 1) && !e.equals(target) && !e
-                                .equals(player) && e.getCurrentHealth() > 0 && !e
-                                .isDead()) {
+                                target.getPosition(), 1) && !e.equals(target) && !e.equals(player) && e.getCurrentHealth() > 0 && !e.isDead()) {
                                 Hit hit = CombatFactory.getHit(player, target,
                                     CombatType.MELEE);
                                 e.dealDamage(hit);
@@ -236,7 +221,7 @@ public enum CombatSpecial {
                 true);
         }
     };
-    
+
     /** The weapon ID's that perform this special when activated. */
     private int[] identifiers;
 
@@ -344,8 +329,7 @@ public enum CombatSpecial {
      *            the player who's special bar will be updated.
      */
     public static void updateSpecialAmount(Player player) {
-        if (player.getWeapon().getSpecialBar() == -1 || player.getWeapon()
-            .getSpecialMeter() == -1) {
+        if (player.getWeapon().getSpecialBar() == -1 || player.getWeapon().getSpecialMeter() == -1) {
             return;
         }
 

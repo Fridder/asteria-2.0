@@ -51,10 +51,8 @@ public class DecodeCommandPacket extends PacketDecoder {
                 for (int i = 0; i < monsters; i++) {
                     World.getNpcs().add(new Npc(npcId2, l.getRandomPosition()));
                 }
-                player
-                    .getPacketBuilder()
-                    .sendMessage(
-                        "You have started a war with " + (monsters * 2) + " monsters!");
+                player.getPacketBuilder().sendMessage(
+                    "You have started a war with " + (monsters * 2) + " monsters!");
                 break;
             case "teleto":
                 World.getPlayerByName(cmd[1].replaceAll("_", " ")).ifPresent(
@@ -77,8 +75,8 @@ public class DecodeCommandPacket extends PacketDecoder {
                 }
                 break;
             case "ban":
-                Player ban = World.getPlayerByName(cmd[1].replaceAll("_", " "))
-                    .orElse(null);
+                Player ban = World.getPlayerByName(cmd[1].replaceAll("_", " ")).orElse(
+                    null);
 
                 if (ban != null && ban.getRights().lessThan(
                     PlayerRights.MODERATOR) && !ban.equals(player)) {
@@ -90,8 +88,10 @@ public class DecodeCommandPacket extends PacketDecoder {
                 break;
             case "master":
                 for (int i = 0; i < player.getSkills().length; i++) {
-                    Skills.experience(player, (Integer.MAX_VALUE - player
-                        .getSkills()[i].getExperience()), i);
+                    Skills.experience(
+                        player,
+                        (Integer.MAX_VALUE - player.getSkills()[i].getExperience()),
+                        i);
                 }
                 break;
             case "tele":
@@ -104,8 +104,8 @@ public class DecodeCommandPacket extends PacketDecoder {
                     new Npc(Integer.parseInt(cmd[1]), player.getPosition()));
                 break;
             case "dummy":
-                Npc mob = new Npc(Integer.parseInt(cmd[1]), player
-                    .getPosition());
+                Npc mob = new Npc(Integer.parseInt(cmd[1]),
+                    player.getPosition());
                 mob.setCurrentHealth(100000);
                 mob.setAutoRetaliate(false);
                 World.getNpcs().add(mob);
@@ -146,17 +146,13 @@ public class DecodeCommandPacket extends PacketDecoder {
                     player.getPacketBuilder().sendMessage(
                         "Item [" + item + "] not found!");
                 } else {
-                    player
-                        .getPacketBuilder()
-                        .sendMessage(
-                            "Item [" + item + "] found on " + count + " occurances.");
+                    player.getPacketBuilder().sendMessage(
+                        "Item [" + item + "] found on " + count + " occurances.");
                 }
 
                 if (addedToBank) {
-                    player
-                        .getPacketBuilder()
-                        .sendMessage(
-                            bankCount + " items were banked due to lack of inventory space!");
+                    player.getPacketBuilder().sendMessage(
+                        bankCount + " items were banked due to lack of inventory space!");
                 }
                 break;
             case "interface":
@@ -172,10 +168,8 @@ public class DecodeCommandPacket extends PacketDecoder {
                     "You are at: " + player.getPosition());
                 break;
             case "pickup":
-                player.getInventory()
-                    .add(
-                        new Item(Integer.parseInt(cmd[1]), Integer
-                            .parseInt(cmd[2])));
+                player.getInventory().add(
+                    new Item(Integer.parseInt(cmd[1]), Integer.parseInt(cmd[2])));
                 break;
             case "empty":
                 player.getInventory().clear();
@@ -201,8 +195,9 @@ public class DecodeCommandPacket extends PacketDecoder {
                 player.graphic(new Graphic(Integer.parseInt(cmd[1])));
                 break;
             case "object":
-                WorldObjectManager.register(new WorldObject(Integer
-                    .parseInt(cmd[1]), player.getPosition(), Direction.SOUTH));
+                WorldObjectManager.register(new WorldObject(
+                    Integer.parseInt(cmd[1]), player.getPosition(),
+                    Direction.SOUTH));
                 break;
             case "config":
                 player.getPacketBuilder().sendConfig(Integer.parseInt(cmd[1]),

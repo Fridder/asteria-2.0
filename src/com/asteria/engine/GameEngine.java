@@ -33,6 +33,9 @@ public final class GameEngine implements Runnable {
         1, 1, TimeUnit.MINUTES, new ThreadFactoryBuilder().setNameFormat(
             "ServiceThread").setPriority(Thread.MIN_PRIORITY));
 
+    /** The default constructor, can only be instantiated in this class. */
+    private GameEngine() {}
+
     /**
      * Schedule the task that will execute game code at 600ms intervals. This
      * method should only be called <b>once</b> when the server is launched.

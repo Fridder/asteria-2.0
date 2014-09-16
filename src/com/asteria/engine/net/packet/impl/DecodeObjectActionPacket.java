@@ -20,7 +20,7 @@ import com.asteria.world.map.Position;
 public class DecodeObjectActionPacket extends PacketDecoder {
 
     /** The various packet opcodes. */
-    public static final int FIRST_CLICK = 132, SECOND_CLICK = 252,
+    private static final int FIRST_CLICK = 132, SECOND_CLICK = 252,
         THIRD_CLICK = 70;
 
     /** The various fields for the packets. */
@@ -46,8 +46,8 @@ public class DecodeObjectActionPacket extends PacketDecoder {
                 @Override
                 public void run() {
                     if (player.getPosition().withinDistance(
-                        new Position(objectX, objectY, player.getPosition()
-                            .getZ()), size)) {
+                        new Position(objectX, objectY,
+                            player.getPosition().getZ()), size)) {
 
                         switch (objectId) {
 
@@ -56,8 +56,7 @@ public class DecodeObjectActionPacket extends PacketDecoder {
                             player.getBank().open();
                             break;
                         case 409:
-                            int level = player.getSkills()[Skills.PRAYER]
-                                .getLevelForExperience();
+                            int level = player.getSkills()[Skills.PRAYER].getLevelForExperience();
 
                             if (player.getSkills()[Skills.PRAYER].getLevel() < level) {
                                 player.animation(new Animation(645));
@@ -102,8 +101,8 @@ public class DecodeObjectActionPacket extends PacketDecoder {
                 @Override
                 public void run() {
                     if (player.getPosition().withinDistance(
-                        new Position(objectX, objectY, player.getPosition()
-                            .getZ()), size)) {
+                        new Position(objectX, objectY,
+                            player.getPosition().getZ()), size)) {
                         switch (objectId) {
 
                         }
@@ -130,8 +129,8 @@ public class DecodeObjectActionPacket extends PacketDecoder {
                 @Override
                 public void run() {
                     if (player.getPosition().withinDistance(
-                        new Position(objectX, objectY, player.getPosition()
-                            .getZ()), size)) {
+                        new Position(objectX, objectY,
+                            player.getPosition().getZ()), size)) {
                         switch (objectId) {
 
                         }

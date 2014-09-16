@@ -96,20 +96,15 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.ATTACK].getLevel() < player
-                    .getSkills()[Skills.ATTACK].getLevelForExperience()) {
+                if (player.getSkills()[Skills.ATTACK].getLevel() < player.getSkills()[Skills.ATTACK].getLevelForExperience()) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the player has already been weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the player has already been weakened.");
                     }
                     return;
                 }
 
-                player.getSkills()[Skills.ATTACK]
-                    .decreaseLevel((int) (0.05 * (player.getSkills()[Skills.ATTACK]
-                        .getLevel())));
+                player.getSkills()[Skills.ATTACK].decreaseLevel((int) (0.05 * (player.getSkills()[Skills.ATTACK].getLevel())));
                 Skills.refresh(player, Skills.ATTACK);
                 player.getPacketBuilder().sendMessage(
                     "You feel slightly weakened.");
@@ -118,10 +113,8 @@ public enum CombatSpells {
 
                 if (npc.getDefenceWeakened()[0] || npc.getStrengthWeakened()[0]) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the NPC has already been weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the NPC has already been weakened.");
                     }
                     return;
                 }
@@ -284,20 +277,15 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.STRENGTH].getLevel() < player
-                    .getSkills()[Skills.STRENGTH].getLevelForExperience()) {
+                if (player.getSkills()[Skills.STRENGTH].getLevel() < player.getSkills()[Skills.STRENGTH].getLevelForExperience()) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the player has already been weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the player has already been weakened.");
                     }
                     return;
                 }
 
-                player.getSkills()[Skills.STRENGTH]
-                    .decreaseLevel((int) (0.05 * (player.getSkills()[Skills.STRENGTH]
-                        .getLevel())));
+                player.getSkills()[Skills.STRENGTH].decreaseLevel((int) (0.05 * (player.getSkills()[Skills.STRENGTH].getLevel())));
                 Skills.refresh(player, Skills.STRENGTH);
                 player.getPacketBuilder().sendMessage(
                     "You feel slightly weakened.");
@@ -306,10 +294,8 @@ public enum CombatSpells {
 
                 if (npc.getDefenceWeakened()[1] || npc.getStrengthWeakened()[1]) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the NPC has already been weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the NPC has already been weakened.");
                     }
                     return;
                 }
@@ -441,8 +427,7 @@ public enum CombatSpells {
 
         @Override
         public Optional<Item[]> itemsRequired(Player player) {
-            return Optional
-                .of(new Item[] { new Item(556, 2), new Item(562, 1) });
+            return Optional.of(new Item[] { new Item(556, 2), new Item(562, 1) });
         }
 
         @Override
@@ -472,20 +457,15 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.DEFENCE].getLevel() < player
-                    .getSkills()[Skills.DEFENCE].getLevelForExperience()) {
+                if (player.getSkills()[Skills.DEFENCE].getLevel() < player.getSkills()[Skills.DEFENCE].getLevelForExperience()) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the player has already been weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the player has already been weakened.");
                     }
                     return;
                 }
 
-                player.getSkills()[Skills.DEFENCE]
-                    .decreaseLevel((int) (0.05 * (player.getSkills()[Skills.DEFENCE]
-                        .getLevel())));
+                player.getSkills()[Skills.DEFENCE].decreaseLevel((int) (0.05 * (player.getSkills()[Skills.DEFENCE].getLevel())));
                 Skills.refresh(player, Skills.DEFENCE);
                 player.getPacketBuilder().sendMessage(
                     "You feel slightly weakened.");
@@ -494,10 +474,8 @@ public enum CombatSpells {
 
                 if (npc.getDefenceWeakened()[2] || npc.getStrengthWeakened()[2]) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the NPC has already been weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the NPC has already been weakened.");
                     }
                     return;
                 }
@@ -553,10 +531,8 @@ public enum CombatSpells {
         public void spellEffect(Entity cast, Entity castOn) {
             if (castOn.getMovementQueue().isLockMovement()) {
                 if (cast.type() == EntityType.PLAYER) {
-                    ((Player) cast)
-                        .getPacketBuilder()
-                        .sendMessage(
-                            "The spell has no effect because they are already frozen.");
+                    ((Player) cast).getPacketBuilder().sendMessage(
+                        "The spell has no effect because they are already frozen.");
                 }
                 return;
             }
@@ -851,8 +827,7 @@ public enum CombatSpells {
 
         @Override
         public Optional<Item[]> itemsRequired(Player player) {
-            return Optional
-                .of(new Item[] { new Item(556, 3), new Item(560, 1) });
+            return Optional.of(new Item[] { new Item(556, 3), new Item(560, 1) });
         }
 
         @Override
@@ -957,8 +932,7 @@ public enum CombatSpells {
 
         @Override
         public Optional<Item[]> itemsRequired(Player player) {
-            return Optional
-                .of(new Item[] { new Item(560, 1), new Item(554, 5) });
+            return Optional.of(new Item[] { new Item(560, 1), new Item(554, 5) });
         }
 
         @Override
@@ -987,10 +961,8 @@ public enum CombatSpells {
         public void spellEffect(Entity cast, Entity castOn) {
             if (castOn.getMovementQueue().isLockMovement()) {
                 if (cast.type() == EntityType.PLAYER) {
-                    ((Player) cast)
-                        .getPacketBuilder()
-                        .sendMessage(
-                            "The spell has no effect because they are already frozen.");
+                    ((Player) cast).getPacketBuilder().sendMessage(
+                        "The spell has no effect because they are already frozen.");
                 }
                 return;
             }
@@ -1073,8 +1045,7 @@ public enum CombatSpells {
 
         @Override
         public Optional<Item[]> itemsRequired(Player player) {
-            return Optional
-                .of(new Item[] { new Item(558, 4), new Item(560, 1) });
+            return Optional.of(new Item[] { new Item(558, 4), new Item(560, 1) });
         }
 
         @Override
@@ -1388,8 +1359,7 @@ public enum CombatSpells {
 
         @Override
         public Optional<Item[]> itemsRequired(Player player) {
-            return Optional
-                .of(new Item[] { new Item(556, 5), new Item(565, 1) });
+            return Optional.of(new Item[] { new Item(556, 5), new Item(565, 1) });
         }
 
         @Override
@@ -1472,20 +1442,15 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.DEFENCE].getLevel() < player
-                    .getSkills()[Skills.DEFENCE].getLevelForExperience()) {
+                if (player.getSkills()[Skills.DEFENCE].getLevel() < player.getSkills()[Skills.DEFENCE].getLevelForExperience()) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the player is already weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the player is already weakened.");
                     }
                     return;
                 }
 
-                player.getSkills()[Skills.DEFENCE]
-                    .decreaseLevel((int) (0.10 * (player.getSkills()[Skills.DEFENCE]
-                        .getLevel())));
+                player.getSkills()[Skills.DEFENCE].decreaseLevel((int) (0.10 * (player.getSkills()[Skills.DEFENCE].getLevel())));
                 Skills.refresh(player, Skills.DEFENCE);
                 player.getPacketBuilder().sendMessage(
                     "You feel slightly weakened.");
@@ -1494,10 +1459,8 @@ public enum CombatSpells {
 
                 if (npc.getDefenceWeakened()[2] || npc.getStrengthWeakened()[2]) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the NPC is already weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the NPC is already weakened.");
                     }
                     return;
                 }
@@ -1607,20 +1570,15 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.STRENGTH].getLevel() < player
-                    .getSkills()[Skills.STRENGTH].getLevelForExperience()) {
+                if (player.getSkills()[Skills.STRENGTH].getLevel() < player.getSkills()[Skills.STRENGTH].getLevelForExperience()) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the player is already weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the player is already weakened.");
                     }
                     return;
                 }
 
-                player.getSkills()[Skills.STRENGTH]
-                    .decreaseLevel((int) (0.10 * (player.getSkills()[Skills.STRENGTH]
-                        .getLevel())));
+                player.getSkills()[Skills.STRENGTH].decreaseLevel((int) (0.10 * (player.getSkills()[Skills.STRENGTH].getLevel())));
                 Skills.refresh(player, Skills.STRENGTH);
                 player.getPacketBuilder().sendMessage(
                     "You feel slightly weakened.");
@@ -1629,10 +1587,8 @@ public enum CombatSpells {
 
                 if (npc.getDefenceWeakened()[1] || npc.getStrengthWeakened()[1]) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the NPC is already weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the NPC is already weakened.");
                     }
                     return;
                 }
@@ -1741,10 +1697,8 @@ public enum CombatSpells {
         public void spellEffect(Entity cast, Entity castOn) {
             if (castOn.getMovementQueue().isLockMovement()) {
                 if (cast.type() == EntityType.PLAYER) {
-                    ((Player) cast)
-                        .getPacketBuilder()
-                        .sendMessage(
-                            "The spell has no effect because they are already frozen.");
+                    ((Player) cast).getPacketBuilder().sendMessage(
+                        "The spell has no effect because they are already frozen.");
                 }
                 return;
             }
@@ -1805,20 +1759,15 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.ATTACK].getLevel() < player
-                    .getSkills()[Skills.ATTACK].getLevelForExperience()) {
+                if (player.getSkills()[Skills.ATTACK].getLevel() < player.getSkills()[Skills.ATTACK].getLevelForExperience()) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the player is already weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the player is already weakened.");
                     }
                     return;
                 }
 
-                player.getSkills()[Skills.ATTACK]
-                    .decreaseLevel((int) (0.10 * (player.getSkills()[Skills.ATTACK]
-                        .getLevel())));
+                player.getSkills()[Skills.ATTACK].decreaseLevel((int) (0.10 * (player.getSkills()[Skills.ATTACK].getLevel())));
                 Skills.refresh(player, Skills.ATTACK);
                 player.getPacketBuilder().sendMessage(
                     "You feel slightly weakened.");
@@ -1827,10 +1776,8 @@ public enum CombatSpells {
 
                 if (npc.getDefenceWeakened()[0] || npc.getStrengthWeakened()[0]) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the NPC is already weakened.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the NPC is already weakened.");
                     }
                     return;
                 }
@@ -1889,10 +1836,8 @@ public enum CombatSpells {
 
                 if (player.getTeleblockTimer() > 0) {
                     if (cast.type() == EntityType.PLAYER) {
-                        ((Player) cast)
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "The spell has no effect because the player is already teleblocked.");
+                        ((Player) cast).getPacketBuilder().sendMessage(
+                            "The spell has no effect because the player is already teleblocked.");
                     }
                     return;
                 }
@@ -1903,10 +1848,8 @@ public enum CombatSpells {
                     "You have just been teleblocked!");
             } else if (castOn.type() == EntityType.NPC) {
                 if (cast.type() == EntityType.PLAYER) {
-                    ((Player) cast)
-                        .getPacketBuilder()
-                        .sendMessage(
-                            "All NPCs are completely immune to this particular spell.");
+                    ((Player) cast).getPacketBuilder().sendMessage(
+                        "All NPCs are completely immune to this particular spell.");
                 }
             }
         }
@@ -2008,14 +1951,11 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.ATTACK].getLevel() < player
-                    .getSkills()[Skills.ATTACK].getLevelForExperience()) {
+                if (player.getSkills()[Skills.ATTACK].getLevel() < player.getSkills()[Skills.ATTACK].getLevelForExperience()) {
                     return;
                 }
 
-                player.getSkills()[Skills.ATTACK]
-                    .decreaseLevel((int) (0.1 * (player.getSkills()[Skills.ATTACK]
-                        .getLevel())));
+                player.getSkills()[Skills.ATTACK].decreaseLevel((int) (0.1 * (player.getSkills()[Skills.ATTACK].getLevel())));
                 Skills.refresh(player, Skills.ATTACK);
             }
         }
@@ -2258,14 +2198,11 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.ATTACK].getLevel() < player
-                    .getSkills()[Skills.ATTACK].getLevelForExperience()) {
+                if (player.getSkills()[Skills.ATTACK].getLevel() < player.getSkills()[Skills.ATTACK].getLevelForExperience()) {
                     return;
                 }
 
-                player.getSkills()[Skills.ATTACK]
-                    .decreaseLevel((int) (0.1 * (player.getSkills()[Skills.ATTACK]
-                        .getLevel())));
+                player.getSkills()[Skills.ATTACK].decreaseLevel((int) (0.1 * (player.getSkills()[Skills.ATTACK].getLevel())));
                 Skills.refresh(player, Skills.ATTACK);
             }
         }
@@ -2506,14 +2443,11 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.ATTACK].getLevel() < player
-                    .getSkills()[Skills.ATTACK].getLevelForExperience()) {
+                if (player.getSkills()[Skills.ATTACK].getLevel() < player.getSkills()[Skills.ATTACK].getLevelForExperience()) {
                     return;
                 }
 
-                player.getSkills()[Skills.ATTACK]
-                    .decreaseLevel((int) (0.15 * (player.getSkills()[Skills.ATTACK]
-                        .getLevel())));
+                player.getSkills()[Skills.ATTACK].decreaseLevel((int) (0.15 * (player.getSkills()[Skills.ATTACK].getLevel())));
                 Skills.refresh(player, Skills.ATTACK);
             }
         }
@@ -2621,8 +2555,7 @@ public enum CombatSpells {
 
         @Override
         public Optional<Item[]> itemsRequired(Player player) {
-            return Optional
-                .of(new Item[] { new Item(565, 4), new Item(560, 2) });
+            return Optional.of(new Item[] { new Item(565, 4), new Item(560, 2) });
         }
 
         @Override
@@ -2755,14 +2688,11 @@ public enum CombatSpells {
             if (castOn.type() == EntityType.PLAYER) {
                 Player player = (Player) castOn;
 
-                if (player.getSkills()[Skills.ATTACK].getLevel() < player
-                    .getSkills()[Skills.ATTACK].getLevelForExperience()) {
+                if (player.getSkills()[Skills.ATTACK].getLevel() < player.getSkills()[Skills.ATTACK].getLevelForExperience()) {
                     return;
                 }
 
-                player.getSkills()[Skills.ATTACK]
-                    .decreaseLevel((int) (0.15 * (player.getSkills()[Skills.ATTACK]
-                        .getLevel())));
+                player.getSkills()[Skills.ATTACK].decreaseLevel((int) (0.15 * (player.getSkills()[Skills.ATTACK].getLevel())));
                 Skills.refresh(player, Skills.ATTACK);
             }
         }

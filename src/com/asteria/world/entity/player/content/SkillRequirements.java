@@ -44,14 +44,10 @@ public final class SkillRequirements {
             }
 
             for (SkillRequirement s : req) {
-                if (player.getSkills()[s.getSkillId()].getLevelForExperience() < s
-                    .getRequiredLevel()) {
-                    player
-                        .getPacketBuilder()
-                        .sendMessage(
-                            "You need a " + Utility.capitalize(SkillData
-                                .getSkill(s.getSkillId()).name().toLowerCase()) + " level of " + s
-                                .getRequiredLevel() + " to wear this item.");
+                if (player.getSkills()[s.getSkillId()].getLevelForExperience() < s.getRequiredLevel()) {
+                    player.getPacketBuilder().sendMessage(
+                        "You need a " + Utility.capitalize(SkillData.getSkill(
+                            s.getSkillId()).name().toLowerCase()) + " level of " + s.getRequiredLevel() + " to wear this item.");
                     return false;
                 }
             }
@@ -71,8 +67,8 @@ public final class SkillRequirements {
             @Override
             public void load(JsonObject reader, Gson builder) {
                 int id = reader.get("item-id").getAsInt();
-                SkillRequirement[] req = builder.fromJson(reader
-                    .get("requirement"), SkillRequirement[].class);
+                SkillRequirement[] req = builder.fromJson(
+                    reader.get("requirement"), SkillRequirement[].class);
                 requirements.put(id, req);
             }
 

@@ -118,11 +118,9 @@ public class PlayerDeath extends EntityDeath<Player> {
         WeaponInterfaces.assign(entity, entity.getEquipment().get(
             Utility.EQUIPMENT_SLOT_WEAPON));
         FightType.assign(entity);
-        entity
-            .getPacketBuilder()
-            .sendMessage(
-                entity.getRights().lessThan(PlayerRights.ADMINISTRATOR) ? "Oh dear, you're dead!"
-                    : "You are part of administration and therefore unaffected by death.");
+        entity.getPacketBuilder().sendMessage(
+            entity.getRights().lessThan(PlayerRights.ADMINISTRATOR) ? "Oh dear, you're dead!"
+                : "You are part of administration and therefore unaffected by death.");
         entity.getPacketBuilder().sendWalkable(65535);
         CombatPrayer.deactivateAll(entity);
         Skills.restoreAll(entity);
@@ -142,12 +140,9 @@ public class PlayerDeath extends EntityDeath<Player> {
         // Add the player's kept items to a cached list.
         List<Integer> keep = new LinkedList<>();
 
-        Arrays
-            .stream(KEEP_ON_DEATH)
-            .filter(
-                id -> entity.getEquipment().unequipItem(new Item(id), false) || entity
-                    .getInventory().remove(new Item(id))).forEach(
-                id -> keep.add(id));
+        Arrays.stream(KEEP_ON_DEATH).filter(
+            id -> entity.getEquipment().unequipItem(new Item(id), false) || entity.getInventory().remove(
+                new Item(id))).forEach(id -> keep.add(id));
 
         // Add the player's inventory and equipment to a cached list.
         List<Item> items = new LinkedList<>();
@@ -164,10 +159,9 @@ public class PlayerDeath extends EntityDeath<Player> {
         // The player is skulled so drop everything.
         if (entity.getSkullTimer() > 0) {
             items.stream().filter(Objects::nonNull).forEach(
-                item -> GroundItemManager
-                    .register(!killer.isPresent() ? new StaticGroundItem(item,
-                        entity.getPosition()) : new GroundItem(item, entity
-                        .getPosition(), killer.get())));
+                item -> GroundItemManager.register(!killer.isPresent() ? new StaticGroundItem(
+                    item, entity.getPosition())
+                    : new GroundItem(item, entity.getPosition(), killer.get())));
         } else {
 
             // The player is not skulled so create an array cache of items to
@@ -188,11 +182,9 @@ public class PlayerDeath extends EntityDeath<Player> {
                         return 1;
                     }
 
-                    if (o1.getDefinition().getGeneralStorePrice() > o2
-                        .getDefinition().getGeneralStorePrice()) {
+                    if (o1.getDefinition().getGeneralStorePrice() > o2.getDefinition().getGeneralStorePrice()) {
                         return -1;
-                    } else if (o1.getDefinition().getGeneralStorePrice() < o2
-                        .getDefinition().getGeneralStorePrice()) {
+                    } else if (o1.getDefinition().getGeneralStorePrice() < o2.getDefinition().getGeneralStorePrice()) {
                         return 1;
                     }
                     return 0;
@@ -236,10 +228,9 @@ public class PlayerDeath extends EntityDeath<Player> {
                     continue;
                 }
 
-                GroundItemManager
-                    .register(!killer.isPresent() ? new StaticGroundItem(item,
-                        entity.getPosition()) : new GroundItem(item, entity
-                        .getPosition(), killer.get()));
+                GroundItemManager.register(!killer.isPresent() ? new StaticGroundItem(
+                    item, entity.getPosition())
+                    : new GroundItem(item, entity.getPosition(), killer.get()));
             }
         }
 

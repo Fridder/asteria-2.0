@@ -27,8 +27,8 @@ public abstract class CombatSpell extends Spell {
             castAnimation().ifPresent(cast::animation);
         } else {
             Npc npc = (Npc) cast;
-            npc.animation(new Animation(npc.getDefinition()
-                .getAttackAnimation()));
+            npc.animation(new Animation(
+                npc.getDefinition().getAttackAnimation()));
         }
 
         // Then send the starting graphic.

@@ -36,8 +36,8 @@ public class DecodeDropItemPacket extends PacketDecoder {
         Skills.fireSkillEvents(player);
 
         if (player.getInventory().contains(item)) {
-            int amount = ItemDefinition.getDefinitions()[item].isStackable() ? amount = player
-                .getInventory().totalAmount(item)
+            int amount = ItemDefinition.getDefinitions()[item].isStackable() ? amount = player.getInventory().totalAmount(
+                item)
                 : 1;
 
             player.getInventory().remove(new Item(item, amount), slot);

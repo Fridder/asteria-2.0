@@ -43,22 +43,22 @@ public class ISAACCipher {
     /**
      * The golden ratio.
      */
-    public static final int RATIO = 0x9e3779b9;
+    private static final int RATIO = 0x9e3779b9;
 
     /**
      * The log of the size of the results and memory arrays.
      */
-    public static final int SIZE_LOG = 8;
+    private static final int SIZE_LOG = 8;
 
     /**
      * The size of the results and memory arrays.
      */
-    public static final int SIZE = 1 << SIZE_LOG;
+    private static final int SIZE = 1 << SIZE_LOG;
 
     /**
      * For pseudorandom lookup.
      */
-    public static final int MASK = (SIZE - 1) << 2;
+    private static final int MASK = (SIZE - 1) << 2;
 
     /**
      * The count through the results.

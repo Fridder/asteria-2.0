@@ -95,17 +95,15 @@ public final class GroundItemManager extends Task implements
         int count = 0;
 
         // Iterate through the items to increment the count.
-        for (Iterator<GroundItem> iterator = itemList.iterator(); iterator
-            .hasNext();) {
+        for (Iterator<GroundItem> iterator = itemList.iterator(); iterator.hasNext();) {
             GroundItem next = iterator.next();
 
             if (next == null) {
                 continue;
             }
 
-            if (next.getItem().getId() == item.getItem().getId() && next
-                .getPosition().equals(item.getPosition()) && next.getPlayer()
-                .equals(item.getPlayer())) {
+            if (next.getItem().getId() == item.getItem().getId() && next.getPosition().equals(
+                item.getPosition()) && next.getPlayer().equals(item.getPlayer())) {
                 count += next.getItem().getAmount();
                 next.fireOnUnregister();
                 iterator.remove();
@@ -205,9 +203,10 @@ public final class GroundItemManager extends Task implements
             @Override
             public void load(JsonObject reader, Gson builder) {
                 GroundItem.StaticGroundItem item = new GroundItem.StaticGroundItem(
-                    new Item(reader.get("id").getAsInt(), reader.get("amount")
-                        .getAsInt()), builder.fromJson(reader.get("position"),
-                        Position.class), ItemPolicy.RESPAWN);
+                    new Item(reader.get("id").getAsInt(),
+                        reader.get("amount").getAsInt()), builder.fromJson(
+                        reader.get("position"), Position.class),
+                    ItemPolicy.RESPAWN);
                 register(item);
             }
 

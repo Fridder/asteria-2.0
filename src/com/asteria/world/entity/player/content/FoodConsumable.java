@@ -163,26 +163,18 @@ public enum FoodConsumable {
 
             if (Utility.random(100F) >= 3.65F) {
                 skill.increaseLevel(30, realLevel);
-                player.getSkills()[Skills.ATTACK].increaseLevel(Utility
-                    .exclusiveRandom(3));
-                player.getSkills()[Skills.STRENGTH].increaseLevel(Utility
-                    .exclusiveRandom(3));
-                player.getSkills()[Skills.DEFENCE].increaseLevel(Utility
-                    .exclusiveRandom(3));
-                player
-                    .getPacketBuilder()
-                    .sendMessage(
-                        "Wow, that was an amazing kebab! You feel really invigorated.");
+                player.getSkills()[Skills.ATTACK].increaseLevel(Utility.exclusiveRandom(3));
+                player.getSkills()[Skills.STRENGTH].increaseLevel(Utility.exclusiveRandom(3));
+                player.getSkills()[Skills.DEFENCE].increaseLevel(Utility.exclusiveRandom(3));
+                player.getPacketBuilder().sendMessage(
+                    "Wow, that was an amazing kebab! You feel really invigorated.");
                 return;
             }
 
             if (Utility.random(100F) >= 3.28F) {
-                player.getSkills()[Skills.ATTACK].decreaseLevel(Utility
-                    .exclusiveRandom(3));
-                player.getSkills()[Skills.STRENGTH].decreaseLevel(Utility
-                    .exclusiveRandom(3));
-                player.getSkills()[Skills.DEFENCE].decreaseLevel(Utility
-                    .exclusiveRandom(3));
+                player.getSkills()[Skills.ATTACK].decreaseLevel(Utility.exclusiveRandom(3));
+                player.getSkills()[Skills.STRENGTH].decreaseLevel(Utility.exclusiveRandom(3));
+                player.getSkills()[Skills.DEFENCE].decreaseLevel(Utility.exclusiveRandom(3));
                 player.getPacketBuilder().sendMessage(
                     "That tasted a bit dodgy. You feel a bit ill.");
                 return;
@@ -195,11 +187,9 @@ public enum FoodConsumable {
                 Skill randomSkill = player.getSkills()[id];
 
                 randomSkill.decreaseLevel(Utility.exclusiveRandom(3));
-                player.getPacketBuilder()
-                    .sendMessage(
-                        "Eating the kebab has damaged your " + SkillData
-                            .getSkill(id).name().toLowerCase().replaceAll("_",
-                                " ") + " stat.");
+                player.getPacketBuilder().sendMessage(
+                    "Eating the kebab has damaged your " + SkillData.getSkill(
+                        id).name().toLowerCase().replaceAll("_", " ") + " stat.");
                 return;
             }
         }
@@ -218,8 +208,7 @@ public enum FoodConsumable {
     /**
      * A set of consumable foods.
      */
-    private static final Set<FoodConsumable> ALL_FOOD = EnumSet
-        .allOf(FoodConsumable.class);
+    private static final Set<FoodConsumable> ALL_FOOD = EnumSet.allOf(FoodConsumable.class);
 
     /**
      * Constructs a new {@link FoodConsumable} with the specified heal amount
@@ -312,8 +301,7 @@ public enum FoodConsumable {
             int length = food.get().getIds().length;
             for (int index = 0; index < length; index++) {
                 if (food.get().getIds()[index] == item.getId() && index + 1 < length) {
-                    return Optional
-                        .of(new Item(food.get().getIds()[index + 1]));
+                    return Optional.of(new Item(food.get().getIds()[index + 1]));
                 }
             }
         }

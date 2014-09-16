@@ -35,8 +35,7 @@ public class DecodeItemOnPlayerPacket extends PacketDecoder {
         player.getMovementQueueListener().append(new Runnable() {
             @Override
             public void run() {
-                if (player.getPosition()
-                    .withinDistance(usedOn.getPosition(), 1)) {
+                if (player.getPosition().withinDistance(usedOn.getPosition(), 1)) {
                     switch (itemUsed) {
 
                     }

@@ -1,7 +1,7 @@
 package com.asteria.world;
 
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Phaser;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import com.asteria.engine.net.Session;
 import com.asteria.world.entity.npc.NpcAggression;
@@ -21,7 +21,7 @@ public class PlayerUpdateSequence implements WorldUpdateSequence<Player> {
     private final Phaser synchronizer;
 
     /** The thread pool that will update players in parallel. */
-    private final ThreadPoolExecutor updateExecutor;
+    private final ExecutorService updateExecutor;
 
     /**
      * Create a new {@link PlayerUpdateSequence}.
@@ -32,7 +32,7 @@ public class PlayerUpdateSequence implements WorldUpdateSequence<Player> {
      *            the thread pool that will update players in parallel.
      */
     public PlayerUpdateSequence(Phaser synchronizer,
-        ThreadPoolExecutor updateExecutor) {
+        ExecutorService updateExecutor) {
         this.synchronizer = synchronizer;
         this.updateExecutor = updateExecutor;
     }

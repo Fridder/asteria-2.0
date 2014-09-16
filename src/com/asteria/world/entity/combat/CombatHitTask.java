@@ -7,7 +7,6 @@ import com.asteria.world.entity.Entity;
 import com.asteria.world.entity.Entity.EntityType;
 import com.asteria.world.entity.Graphic;
 import com.asteria.world.entity.combat.CombatContainer.CombatHit;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
 import com.asteria.world.entity.npc.Npc;
 import com.asteria.world.entity.player.Player;
 import com.asteria.world.item.Item;
@@ -72,8 +71,7 @@ public class CombatHitTask extends Task {
 
         // Now we send the hitsplats if needed! We can't send the hitsplats
         // there are none to send, or if we're using magic and it splashed.
-        if (container.getHits().length != 0 && container.getCombatType() != CombatType.MAGIC || container
-            .isAccurate()) {
+        if (container.getHits().length != 0 && container.getCombatType() != CombatType.MAGIC || container.isAccurate()) {
             victim.getCombatBuilder().addDamage(attacker,
                 (damage = container.dealDamage()));
         }
@@ -114,8 +112,7 @@ public class CombatHitTask extends Task {
             }
 
             // 50% chance of dropping arrows from a ranged attack.
-            if (container.getCombatType() == CombatType.RANGED && attacker
-                .type() == EntityType.PLAYER && Utility.exclusiveRandom(2) == 0) {
+            if (container.getCombatType() == CombatType.RANGED && attacker.type() == EntityType.PLAYER && Utility.exclusiveRandom(2) == 0) {
                 Player player = (Player) attacker;
                 if (player.getFireAmmo() > 0) {
                     GroundItemManager.registerAndStack(new GroundItem(new Item(
@@ -129,8 +126,8 @@ public class CombatHitTask extends Task {
         if (victim.type() == EntityType.PLAYER) {
             victim.animation(new Animation(404));
         } else if (victim.type() == EntityType.NPC) {
-            victim.animation(new Animation(((Npc) victim).getDefinition()
-                .getDefenceAnimation()));
+            victim.animation(new Animation(
+                ((Npc) victim).getDefinition().getDefenceAnimation()));
         }
 
         // Fire the container's dynamic hit method.
@@ -141,8 +138,7 @@ public class CombatHitTask extends Task {
         victim.getCombatBuilder().setLastAttacker(attacker);
 
         // And finally auto-retaliate if needed.
-        if (victim.isAutoRetaliate() && !victim.getCombatBuilder()
-            .isAttacking()) {
+        if (victim.isAutoRetaliate() && !victim.getCombatBuilder().isAttacking()) {
             victim.getCombatBuilder().attack(attacker);
         }
 

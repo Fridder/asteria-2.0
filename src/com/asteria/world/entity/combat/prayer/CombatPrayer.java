@@ -3,7 +3,7 @@ package com.asteria.world.entity.combat.prayer;
 import com.asteria.engine.task.TaskManager;
 import com.asteria.util.Utility;
 import com.asteria.world.entity.UpdateFlags.Flag;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
+import com.asteria.world.entity.combat.CombatType;
 import com.asteria.world.entity.player.Player;
 import com.asteria.world.entity.player.skill.Skills;
 
@@ -162,8 +162,7 @@ public enum CombatPrayer {
             CombatPrayer.RETRIBUTION.deactivate(player, false);
             CombatPrayer.SMITE.deactivate(player, false);
             player.getPrayerActive()[CombatPrayer.PROTECT_FROM_MISSILES.getId()] = true;
-            player
-                .setHeadIcon(CombatPrayer.PROTECT_FROM_MISSILES.getHeadIcon());
+            player.setHeadIcon(CombatPrayer.PROTECT_FROM_MISSILES.getHeadIcon());
             player.getPacketBuilder().sendConfig(
                 CombatPrayer.PROTECT_FROM_MISSILES.getPrayerGlow(), 1);
             player.getFlags().flag(Flag.APPEARANCE);
@@ -358,11 +357,9 @@ public enum CombatPrayer {
 
         // Check the required prayer level.
         if (player.getSkills()[Skills.PRAYER].getLevelForExperience() < levelRequired) {
-            player
-                .getPacketBuilder()
-                .sendEmptyChatbox(
-                    "You need a @blu@Prayer level of " + levelRequired + " @bla@to use @blu@" + Utility
-                        .capitalize(name().toLowerCase().replaceAll("_", " ")) + "@bla@.");
+            player.getPacketBuilder().sendEmptyChatbox(
+                "You need a @blu@Prayer level of " + levelRequired + " @bla@to use @blu@" + Utility.capitalize(name().toLowerCase().replaceAll(
+                    "_", " ")) + "@bla@.");
             player.getPacketBuilder().sendConfig(prayerGlow, 0);
             return;
         }
@@ -376,8 +373,7 @@ public enum CombatPrayer {
         }
 
         // Start a task if needed to drain prayer.
-        if (player.getPrayerDrain() == null || !player.getPrayerDrain()
-            .isRunning()) {
+        if (player.getPrayerDrain() == null || !player.getPrayerDrain().isRunning()) {
             player.setPrayerDrain(new CombatPrayerTask(player));
             TaskManager.submit(player.getPrayerDrain());
         }

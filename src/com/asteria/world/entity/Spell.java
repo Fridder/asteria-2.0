@@ -30,10 +30,8 @@ public abstract class Spell {
 
         // We first check the level required.
         if (player.getSkills()[Skills.MAGIC].getLevel() < levelRequired()) {
-            player
-                .getPacketBuilder()
-                .sendMessage(
-                    "You need a Magic level of " + levelRequired() + " to cast this spell.");
+            player.getPacketBuilder().sendMessage(
+                "You need a Magic level of " + levelRequired() + " to cast this spell.");
             player.getCombatBuilder().reset();
             return false;
         }
@@ -66,10 +64,8 @@ public abstract class Spell {
         if (equipmentRequired(player).isPresent()) {
             if (!player.getEquipment().containsAll(
                 equipmentRequired(player).get())) {
-                player
-                    .getPacketBuilder()
-                    .sendMessage(
-                        "You do not have the required equipment to cast this spell.");
+                player.getPacketBuilder().sendMessage(
+                    "You do not have the required equipment to cast this spell.");
                 resetPlayerSpell(player);
                 player.getCombatBuilder().reset();
                 return false;
@@ -86,8 +82,7 @@ public abstract class Spell {
      */
     // To prevent a bit of boilerplate code.
     private void resetPlayerSpell(Player player) {
-        if (player.getCombatBuilder().isAttacking() || player
-            .getCombatBuilder().isBeingAttacked() && player.isAutocast()) {
+        if (player.getCombatBuilder().isAttacking() || player.getCombatBuilder().isBeingAttacked() && player.isAutocast()) {
             player.setAutocastSpell(null);
             player.setAutocast(false);
             player.getPacketBuilder().sendConfig(108, 0);

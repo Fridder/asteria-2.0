@@ -61,12 +61,8 @@ public class Position {
      *         <code>false</code> otherwise.
      */
     public boolean inLocation(Location other, boolean inclusive) {
-        return !inclusive ? this.x > other.getSouthWestX() && this.x < other
-            .getNorthEastX() && this.y > other.getSouthWestY() && this.y < other
-            .getNorthEastY()
-            : this.x >= other.getSouthWestX() && this.x <= other
-                .getNorthEastX() && this.y >= other.getSouthWestY() && this.y <= other
-                .getNorthEastY();
+        return !inclusive ? this.x > other.getSouthWestX() && this.x < other.getNorthEastX() && this.y > other.getSouthWestY() && this.y < other.getNorthEastY()
+            : this.x >= other.getSouthWestX() && this.x <= other.getNorthEastX() && this.y >= other.getSouthWestY() && this.y <= other.getNorthEastY();
     }
 
     /**
@@ -367,7 +363,6 @@ public class Position {
         if (this.getZ() != position.getZ())
             return false;
 
-        return Math.abs(position.getX() - this.getX()) <= distance && Math
-            .abs(position.getY() - this.getY()) <= distance;
+        return Math.abs(position.getX() - this.getX()) <= distance && Math.abs(position.getY() - this.getY()) <= distance;
     }
 }

@@ -7,7 +7,6 @@ import java.util.function.Consumer;
 import com.asteria.world.entity.Entity;
 import com.asteria.world.entity.Entity.EntityType;
 import com.asteria.world.entity.Hit;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
 import com.asteria.world.entity.player.Player;
 
 /**
@@ -150,8 +149,8 @@ public class CombatContainer {
         } else if (hits.length == 2) {
             victim.dealDoubleDamage(hits[0].getHit(), hits[1].getHit());
         } else if (hits.length == 3) {
-            victim.dealTripleDamage(hits[0].getHit(), hits[1].getHit(), hits[2]
-                .getHit());
+            victim.dealTripleDamage(hits[0].getHit(), hits[1].getHit(),
+                hits[2].getHit());
         } else if (hits.length == 4) {
             victim.dealQuadrupleDamage(hits[0].getHit(), hits[1].getHit(),
                 hits[2].getHit(), hits[3].getHit());

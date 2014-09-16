@@ -29,6 +29,15 @@ public final class TaskManager {
     private static List<Task> activeTasks = new LinkedList<>();
 
     /**
+     * The default constructor, will throw an
+     * {@link UnsupportedOperationException} if instantiated.
+     */
+    private TaskManager() {
+        throw new UnsupportedOperationException(
+            "This class cannot be instantiated!");
+    }
+
+    /**
      * Adds pending tasks to the list of active tasks, fires tasks that are
      * ready to be ran, and removes tasks that have been canceled.
      */
@@ -130,6 +139,4 @@ public final class TaskManager {
     public static Collection<Task> retrievePendingtasks() {
         return Collections.unmodifiableCollection(pendingTasks);
     }
-
-    private TaskManager() {}
 }

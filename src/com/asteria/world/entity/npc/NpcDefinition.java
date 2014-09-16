@@ -89,40 +89,24 @@ public class NpcDefinition {
                 definitions[index] = new NpcDefinition();
                 definitions[index].setId(index);
                 definitions[index].setName(reader.get("name").getAsString());
-                definitions[index].setExamine(reader.get("examine")
-                    .getAsString());
-                definitions[index].setCombatLevel(reader.get("combat")
-                    .getAsInt());
+                definitions[index].setExamine(reader.get("examine").getAsString());
+                definitions[index].setCombatLevel(reader.get("combat").getAsInt());
                 definitions[index].setNpcSize(reader.get("size").getAsInt());
-                definitions[index].setAttackable(reader.get("attackable")
-                    .getAsBoolean());
-                definitions[index].setAggressive(reader.get("aggressive")
-                    .getAsBoolean());
-                definitions[index].setRetreats(reader.get("retreats")
-                    .getAsBoolean());
-                definitions[index].setPoisonous(reader.get("poisonous")
-                    .getAsBoolean());
-                definitions[index].setRespawnTime(reader.get("respawn")
-                    .getAsInt());
+                definitions[index].setAttackable(reader.get("attackable").getAsBoolean());
+                definitions[index].setAggressive(reader.get("aggressive").getAsBoolean());
+                definitions[index].setRetreats(reader.get("retreats").getAsBoolean());
+                definitions[index].setPoisonous(reader.get("poisonous").getAsBoolean());
+                definitions[index].setRespawnTime(reader.get("respawn").getAsInt());
                 definitions[index].setMaxHit(reader.get("maxHit").getAsInt());
-                definitions[index].setHitpoints(reader.get("hitpoints")
-                    .getAsInt());
-                definitions[index].setAttackSpeed(reader.get("attackSpeed")
-                    .getAsInt());
-                definitions[index].setAttackAnimation(reader.get("attackAnim")
-                    .getAsInt());
-                definitions[index].setDefenceAnimation(reader
-                    .get("defenceAnim").getAsInt());
-                definitions[index].setDeathAnimation(reader.get("deathAnim")
-                    .getAsInt());
-                definitions[index].setAttackBonus(reader.get("attackBonus")
-                    .getAsInt());
-                definitions[index].setDefenceMelee(reader.get("defenceMelee")
-                    .getAsInt());
-                definitions[index].setDefenceRange(reader.get("defenceRange")
-                    .getAsInt());
-                definitions[index].setDefenceMage(reader.get("defenceMage")
-                    .getAsInt());
+                definitions[index].setHitpoints(reader.get("hitpoints").getAsInt());
+                definitions[index].setAttackSpeed(reader.get("attackSpeed").getAsInt());
+                definitions[index].setAttackAnimation(reader.get("attackAnim").getAsInt());
+                definitions[index].setDefenceAnimation(reader.get("defenceAnim").getAsInt());
+                definitions[index].setDeathAnimation(reader.get("deathAnim").getAsInt());
+                definitions[index].setAttackBonus(reader.get("attackBonus").getAsInt());
+                definitions[index].setDefenceMelee(reader.get("defenceMelee").getAsInt());
+                definitions[index].setDefenceRange(reader.get("defenceRange").getAsInt());
+                definitions[index].setDefenceMage(reader.get("defenceMage").getAsInt());
             }
 
             @Override

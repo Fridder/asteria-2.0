@@ -152,8 +152,7 @@ public enum PotionConsumable {
     private final int[] ids;
 
     /** The enum set of potions. */
-    private static final Set<PotionConsumable> ALL_POTIONS = EnumSet
-        .allOf(PotionConsumable.class);
+    private static final Set<PotionConsumable> ALL_POTIONS = EnumSet.allOf(PotionConsumable.class);
 
     /**
      * Create a new {@link PotionConsumable}.
@@ -285,10 +284,8 @@ public enum PotionConsumable {
                     public void execute() {
                         player.decrementPoisonImmunity(50);
                         if (player.getPoisonImmunity() == 50) {
-                            player
-                                .getPacketBuilder()
-                                .sendMessage(
-                                    "Your resistance to poison is about to wear off!");
+                            player.getPacketBuilder().sendMessage(
+                                "Your resistance to poison is about to wear off!");
                         } else if (player.getPoisonImmunity() <= 0) {
                             cancel();
                         }
@@ -336,11 +333,9 @@ public enum PotionConsumable {
      *            the player to do this action for..
      */
     private static void doAntiFire(Player player) {
-        player
-            .getPacketBuilder()
-            .sendMessage(
-                player.getDragonFireImmunity() <= 0 ? "You have been granted immunity against dragon fire."
-                    : "Your immunity against dragon fire has been restored.");
+        player.getPacketBuilder().sendMessage(
+            player.getDragonFireImmunity() <= 0 ? "You have been granted immunity against dragon fire."
+                : "Your immunity against dragon fire has been restored.");
 
         if (player.getDragonFireImmunity() <= 0) {
             TaskManager.submit(new Task(30, false) {
@@ -349,10 +344,8 @@ public enum PotionConsumable {
                     player.decrementDragonFireImmunity(30);
 
                     if (player.getDragonFireImmunity() == 30) {
-                        player
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "Your resistance to dragon fire is about to wear off!");
+                        player.getPacketBuilder().sendMessage(
+                            "Your resistance to dragon fire is about to wear off!");
                     } else if (player.getDragonFireImmunity() <= 0) {
                         cancel();
                     }

@@ -36,8 +36,8 @@ public class NpcDeath extends EntityDeath<Npc> {
     public void preDeath(Npc entity) {
 
         // Here we do the death animation.
-        entity.animation(new Animation(entity.getDefinition()
-            .getDeathAnimation()));
+        entity.animation(new Animation(
+            entity.getDefinition().getDeathAnimation()));
     }
 
     @Override
@@ -59,10 +59,9 @@ public class NpcDeath extends EntityDeath<Npc> {
                     continue;
                 }
 
-                GroundItemManager
-                    .register(!killer.isPresent() ? new StaticGroundItem(drop,
-                        entity.getPosition()) : new GroundItem(drop, entity
-                        .getPosition(), killer.get()));
+                GroundItemManager.register(!killer.isPresent() ? new StaticGroundItem(
+                    drop, entity.getPosition())
+                    : new GroundItem(drop, entity.getPosition(), killer.get()));
             }
 
             // Fire any minigame events.
@@ -83,8 +82,8 @@ public class NpcDeath extends EntityDeath<Npc> {
             TaskManager.submit(new Task(entity.getRespawnTime(), false) {
                 @Override
                 public void execute() {
-                    Npc npc = new Npc(entity.getNpcId(), entity
-                        .getOriginalPosition());
+                    Npc npc = new Npc(entity.getNpcId(),
+                        entity.getOriginalPosition());
                     npc.setRespawn(true);
                     World.getNpcs().add(npc);
                     this.cancel();

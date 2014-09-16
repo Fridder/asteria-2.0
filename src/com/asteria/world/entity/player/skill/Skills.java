@@ -68,8 +68,7 @@ public final class Skills {
 
         // Check if we are able to level up and do so if needed.
         if (!(oldLevel >= 99)) {
-            int newLevel = player.getSkills()[skill]
-                .calculateLevelForExperience();
+            int newLevel = player.getSkills()[skill].calculateLevelForExperience();
 
             if (oldLevel < newLevel) {
                 if (skill != 3) {
@@ -103,19 +102,14 @@ public final class Skills {
 
         // Send the player an indication that they have leveled up.
         player.getPacketBuilder().sendString(
-            "@dre@Congratulations, you've just advanced " + Utility
-                .appendIndefiniteArticle(skill.name().toLowerCase().replaceAll(
-                    "_", " ")) + " level!", skill.getFirstLine());
-        player
-            .getPacketBuilder()
-            .sendString(
-                "Your " + skill.name().toLowerCase().replaceAll("_", " ") + " level is now " + player
-                    .getSkills()[skillId].getLevelForExperience() + ".",
-                skill.getSecondLine());
+            "@dre@Congratulations, you've just advanced " + Utility.appendIndefiniteArticle(skill.name().toLowerCase().replaceAll(
+                "_", " ")) + " level!", skill.getFirstLine());
+        player.getPacketBuilder().sendString(
+            "Your " + skill.name().toLowerCase().replaceAll("_", " ") + " level is now " + player.getSkills()[skillId].getLevelForExperience() + ".",
+            skill.getSecondLine());
         player.getPacketBuilder().sendMessage(
-            "Congratulations, you've just advanced " + Utility
-                .appendIndefiniteArticle(skill.name().toLowerCase().replaceAll(
-                    "_", " ")) + " level!");
+            "Congratulations, you've just advanced " + Utility.appendIndefiniteArticle(skill.name().toLowerCase().replaceAll(
+                "_", " ")) + " level!");
         player.getPacketBuilder().sendChatInterface(skill.getChatbox());
     }
 
@@ -198,8 +192,8 @@ public final class Skills {
     public static void restore(Player player, int skill) {
 
         // Restore it back to its original level.
-        player.getSkills()[skill].setLevel(player.getSkills()[skill]
-            .getLevelForExperience(), true);
+        player.getSkills()[skill].setLevel(
+            player.getSkills()[skill].getLevelForExperience(), true);
 
         // Refresh the skill after.
         refresh(player, skill);

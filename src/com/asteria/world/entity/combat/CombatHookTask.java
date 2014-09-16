@@ -3,7 +3,6 @@ package com.asteria.world.entity.combat;
 import com.asteria.engine.task.Task;
 import com.asteria.engine.task.TaskManager;
 import com.asteria.world.entity.Entity.EntityType;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
 import com.asteria.world.entity.combat.weapon.CombatSpecial;
 import com.asteria.world.entity.player.Player;
 
@@ -84,8 +83,8 @@ public class CombatHookTask extends Task {
                 if (player.isSpecialActivated()) {
                     container = player.getCombatSpecial().container(player,
                         builder.getVictim());
-                    CombatSpecial.drain(player, player.getCombatSpecial()
-                        .getDrainAmount());
+                    CombatSpecial.drain(player,
+                        player.getCombatSpecial().getDrainAmount());
                 }
             }
 

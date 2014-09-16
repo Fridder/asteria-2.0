@@ -52,8 +52,8 @@ public class Item {
 
     @Override
     public String toString() {
-        String defintion = getDefinition() == null ? "null" : getDefinition()
-            .getItemName();
+        String defintion = getDefinition() == null ? "null"
+            : getDefinition().getItemName();
         return "ITEM[item= " + id + ", amount= " + amount + ", name= " + defintion + "]";
     }
 

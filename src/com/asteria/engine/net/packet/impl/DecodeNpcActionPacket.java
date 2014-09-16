@@ -32,8 +32,8 @@ import com.asteria.world.shop.Shop;
 public class DecodeNpcActionPacket extends PacketDecoder {
 
     /** The various packet opcodes. */
-    public static final int ATTACK_NPC = 72, MAGE_NPC = 131, FIRST_CLICK = 155,
-        SECOND_CLICK = 17;
+    private static final int ATTACK_NPC = 72, MAGE_NPC = 131,
+        FIRST_CLICK = 155, SECOND_CLICK = 17;
 
     /** The index of this npc. */
     private int index;
@@ -58,8 +58,7 @@ public class DecodeNpcActionPacket extends PacketDecoder {
                 return;
             }
 
-            if (!NpcDefinition.getDefinitions()[interact.getNpcId()]
-                .isAttackable()) {
+            if (!NpcDefinition.getDefinitions()[interact.getNpcId()].isAttackable()) {
                 return;
             }
 
@@ -70,9 +69,7 @@ public class DecodeNpcActionPacket extends PacketDecoder {
                 }
             }
 
-            if (!Location.inMultiCombat(player) && player.getCombatBuilder()
-                .isBeingAttacked() && player.getCombatBuilder()
-                .getLastAttacker() != interact) {
+            if (!Location.inMultiCombat(player) && player.getCombatBuilder().isBeingAttacked() && player.getCombatBuilder().getLastAttacker() != interact) {
                 player.getPacketBuilder().sendMessage(
                     "You are already under attack!");
                 return;
@@ -89,8 +86,7 @@ public class DecodeNpcActionPacket extends PacketDecoder {
             }
 
             interact = World.getNpcs().get(index);
-            CombatSpell spell = CombatSpells.getSpell(spellId).orElse(null)
-                .getSpell();
+            CombatSpell spell = CombatSpells.getSpell(spellId).orElse(null).getSpell();
 
             if (interact == null) {
                 return;
@@ -103,14 +99,11 @@ public class DecodeNpcActionPacket extends PacketDecoder {
                 }
             }
 
-            if (!NpcDefinition.getDefinitions()[interact.getNpcId()]
-                .isAttackable()) {
+            if (!NpcDefinition.getDefinitions()[interact.getNpcId()].isAttackable()) {
                 return;
             }
 
-            if (!Location.inMultiCombat(player) && player.getCombatBuilder()
-                .isBeingAttacked() && player.getCombatBuilder()
-                .getLastAttacker() != interact) {
+            if (!Location.inMultiCombat(player) && player.getCombatBuilder().isBeingAttacked() && player.getCombatBuilder().getLastAttacker() != interact) {
                 player.getPacketBuilder().sendMessage(
                     "You are already under attack!");
                 return;
@@ -139,9 +132,9 @@ public class DecodeNpcActionPacket extends PacketDecoder {
                 @Override
                 public void run() {
                     if (player.getPosition().withinDistance(
-                        new Position(interact.getPosition().getX(), interact
-                            .getPosition().getY(), interact.getPosition()
-                            .getZ()), 1)) {
+                        new Position(interact.getPosition().getX(),
+                            interact.getPosition().getY(),
+                            interact.getPosition().getZ()), 1)) {
                         player.facePosition(interact.getPosition());
                         interact.facePosition(player.getPosition());
 
@@ -210,9 +203,9 @@ public class DecodeNpcActionPacket extends PacketDecoder {
                 @Override
                 public void run() {
                     if (player.getPosition().withinDistance(
-                        new Position(interact.getPosition().getX(), interact
-                            .getPosition().getY(), interact.getPosition()
-                            .getZ()), 1)) {
+                        new Position(interact.getPosition().getX(),
+                            interact.getPosition().getY(),
+                            interact.getPosition().getZ()), 1)) {
                         player.facePosition(interact.getPosition());
                         interact.facePosition(player.getPosition());
 

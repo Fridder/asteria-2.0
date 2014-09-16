@@ -40,8 +40,8 @@ public class DecodePickupItemPacket extends PacketDecoder {
                     new Position(itemX, itemY, player.getPosition().getZ()))) {
 
                     Optional<GroundItem> item = GroundItemManager.getItem(
-                        itemId, new Position(itemX, itemY, player.getPosition()
-                            .getZ()));
+                        itemId, new Position(itemX, itemY,
+                            player.getPosition().getZ()));
 
                     if (!item.isPresent()) {
                         return;
@@ -51,10 +51,8 @@ public class DecodePickupItemPacket extends PacketDecoder {
 
                     .spaceFor(
                         new Item(itemId, item.get().getItem().getAmount()))) {
-                        player
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "You don't have enough free inventory space to pickup this item.");
+                        player.getPacketBuilder().sendMessage(
+                            "You don't have enough free inventory space to pickup this item.");
                         return;
                     }
 

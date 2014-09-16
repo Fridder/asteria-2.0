@@ -125,10 +125,8 @@ public class MovementQueue {
 
         // Check for region changes.
         if (entity.type() == EntityType.PLAYER) {
-            int deltaX = entity.getPosition().getX() - entity
-                .getCurrentRegion().getRegionX() * 8;
-            int deltaY = entity.getPosition().getY() - entity
-                .getCurrentRegion().getRegionY() * 8;
+            int deltaX = entity.getPosition().getX() - entity.getCurrentRegion().getRegionX() * 8;
+            int deltaY = entity.getPosition().getY() - entity.getCurrentRegion().getRegionY() * 8;
 
             if (deltaX < 16 || deltaX >= 88 || deltaY < 16 || deltaY > 88) {
                 ((Player) entity).getPacketBuilder().sendMapRegion();
@@ -146,8 +144,8 @@ public class MovementQueue {
      *            the amount of spaces to walk to the y.
      */
     public void walk(int addX, int addY) {
-        walk(new Position(entity.getPosition().getX() + addX, entity
-            .getPosition().getY() + addY));
+        walk(new Position(entity.getPosition().getX() + addX,
+            entity.getPosition().getY() + addY));
     }
 
     /**
@@ -267,8 +265,7 @@ public class MovementQueue {
 
         // If we are currently following, stop before following someone else.
         if (followTask != null) {
-            if (entity.isFollowing() && !entity.getFollowEntity()
-                .equals(leader)) {
+            if (entity.isFollowing() && !entity.getFollowEntity().equals(leader)) {
                 entity.faceEntity(null);
                 followTask.cancel();
                 entity.setFollowing(false);
@@ -292,9 +289,8 @@ public class MovementQueue {
                 public void execute() {
 
                     // Check if we can still follow the leader.
-                    if (!entity.isFollowing() || !entity.getPosition()
-                        .withinDistance(leader.getPosition(), 20) || entity
-                        .isDead() || leader.isDead()) {
+                    if (!entity.isFollowing() || !entity.getPosition().withinDistance(
+                        leader.getPosition(), 20) || entity.isDead() || leader.isDead()) {
                         entity.faceEntity(null);
                         entity.setFollowing(false);
                         entity.setFollowEntity(null);
@@ -306,8 +302,7 @@ public class MovementQueue {
                     entity.faceEntity(leader);
 
                     // Block if our movement is locked.
-                    if (entity.getMovementQueue().isLockMovement() || entity
-                        .isFrozen()) {
+                    if (entity.getMovementQueue().isLockMovement() || entity.isFrozen()) {
                         return;
                     }
 
@@ -346,12 +341,10 @@ public class MovementQueue {
                     }
 
                     // Check if we are within distance to attack for combat.
-                    if (entity.getCombatBuilder().isAttacking() && entity
-                        .getPosition()
-                        .withinDistance(
-                            entity.getCombatBuilder().getVictim().getPosition(),
-                            entity.getCombatBuilder().getStrategy()
-                                .attackDistance(entity))) {
+                    if (entity.getCombatBuilder().isAttacking() && entity.getPosition().withinDistance(
+                        entity.getCombatBuilder().getVictim().getPosition(),
+                        entity.getCombatBuilder().getStrategy().attackDistance(
+                            entity))) {
                         entity.getMovementQueue().reset();
                         return;
                     }

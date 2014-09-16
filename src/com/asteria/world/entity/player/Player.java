@@ -16,8 +16,8 @@ import com.asteria.util.Utility;
 import com.asteria.world.entity.Entity;
 import com.asteria.world.entity.Hit;
 import com.asteria.world.entity.combat.CombatFactory;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
 import com.asteria.world.entity.combat.CombatStrategy;
+import com.asteria.world.entity.combat.CombatType;
 import com.asteria.world.entity.combat.effect.CombatPoisonEffect.CombatPoisonData;
 import com.asteria.world.entity.combat.magic.CombatSpell;
 import com.asteria.world.entity.combat.prayer.CombatPrayerTask;
@@ -150,7 +150,7 @@ public class Player extends Entity {
     private final Stopwatch eatingTimer = new Stopwatch().reset(),
         potionTimer = new Stopwatch().reset(), tolerance = new Stopwatch(),
         lastEnergy = new Stopwatch().reset();
-    
+
     /** The fishing tool field for fishing. */
     private Tool fishingTool;
 
@@ -255,8 +255,8 @@ public class Player extends Entity {
 
         // Set the player's rights, if we're connecting locally we automatically
         // get developer status.
-        rights = session.getHost().equals("127.0.0.1") || session.getHost()
-            .equals("localhost") ? PlayerRights.DEVELOPER : PlayerRights.PLAYER;
+        rights = session.getHost().equals("127.0.0.1") || session.getHost().equals(
+            "localhost") ? PlayerRights.DEVELOPER : PlayerRights.PLAYER;
 
         // Set the default appearance.
         getAppearance()[Utility.APPEARANCE_SLOT_CHEST] = 18;
@@ -330,11 +330,13 @@ public class Player extends Entity {
     @Override
     public void poisonVictim(Entity victim, CombatType type) {
         if (type == CombatType.MELEE || weapon == WeaponInterface.DART || weapon == WeaponInterface.KNIFE || weapon == WeaponInterface.THROWNAXE || weapon == WeaponInterface.JAVELIN) {
-            CombatFactory.poisonEntity(victim, CombatPoisonData
-                .getPoisonType(equipment.get(Utility.EQUIPMENT_SLOT_WEAPON)));
+            CombatFactory.poisonEntity(
+                victim,
+                CombatPoisonData.getPoisonType(equipment.get(Utility.EQUIPMENT_SLOT_WEAPON)));
         } else if (type == CombatType.RANGED) {
-            CombatFactory.poisonEntity(victim, CombatPoisonData
-                .getPoisonType(equipment.get(Utility.EQUIPMENT_SLOT_ARROWS)));
+            CombatFactory.poisonEntity(
+                victim,
+                CombatPoisonData.getPoisonType(equipment.get(Utility.EQUIPMENT_SLOT_ARROWS)));
         }
     }
 
@@ -365,14 +367,12 @@ public class Player extends Entity {
 
         if (teleblockTimer > 0) {
             if ((teleblockTimer * 600) >= 1000 && (teleblockTimer * 600) <= 60000) {
-                getPacketBuilder()
-                    .sendMessage(
-                        "You must wait approximately " + ((teleblockTimer * 600) / 1000) + " seconds in order to teleport!");
+                getPacketBuilder().sendMessage(
+                    "You must wait approximately " + ((teleblockTimer * 600) / 1000) + " seconds in order to teleport!");
                 return;
             } else if ((teleblockTimer * 600) > 60000) {
-                getPacketBuilder()
-                    .sendMessage(
-                        "You must wait approximately " + ((teleblockTimer * 600) / 60000) + " minutes in order to teleport!");
+                getPacketBuilder().sendMessage(
+                    "You must wait approximately " + ((teleblockTimer * 600) / 60000) + " minutes in order to teleport!");
                 return;
             }
         }
@@ -466,10 +466,8 @@ public class Player extends Entity {
 
     @Override
     public String toString() {
-        return getUsername() == null ? "SESSION[host= " + session.getHost() + ", stage= " + session
-            .getStage().name() + "]"
-            : "PLAYER[username= " + getUsername() + ", host= " + session
-                .getHost() + ", rights= " + rights + "]";
+        return getUsername() == null ? "SESSION[host= " + session.getHost() + ", stage= " + session.getStage().name() + "]"
+            : "PLAYER[username= " + getUsername() + ", host= " + session.getHost() + ", rights= " + rights + "]";
     }
 
     @Override
@@ -598,8 +596,8 @@ public class Player extends Entity {
 
         // Update the wilderness info.
         if (Location.inWilderness(this)) {
-            int calculateY = this.getPosition().getY() > 6400 ? this
-                .getPosition().getY() - 6400 : this.getPosition().getY();
+            int calculateY = this.getPosition().getY() > 6400 ? this.getPosition().getY() - 6400
+                : this.getPosition().getY();
             wildernessLevel = (((calculateY - 3520) / 8) + 1);
 
             if (!wildernessInterface) {
@@ -654,8 +652,7 @@ public class Player extends Entity {
             if (playerBonus[i] >= 0) {
                 send = Utility.BONUS_NAMES[i] + ": +" + playerBonus[i];
             } else {
-                send = Utility.BONUS_NAMES[i] + ": -" + Math
-                    .abs(playerBonus[i]);
+                send = Utility.BONUS_NAMES[i] + ": -" + Math.abs(playerBonus[i]);
             }
 
             if (i == 10) {

@@ -56,8 +56,8 @@ public final class WeaponAnimations {
             @Override
             public void load(JsonObject reader, Gson builder) {
                 int id = reader.get("item-id").getAsInt();
-                WeaponAnimation animation = builder.fromJson(reader
-                    .get("animation"), WeaponAnimation.class);
+                WeaponAnimation animation = builder.fromJson(
+                    reader.get("animation"), WeaponAnimation.class);
                 animations.put(id, animation);
             }
 

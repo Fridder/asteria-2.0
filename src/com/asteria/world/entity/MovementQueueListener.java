@@ -51,8 +51,8 @@ public class MovementQueueListener {
         entity.setFollowing(false);
 
         // Build the new listener.
-        listener = new MovementQueueListenerTask(entity, Objects
-            .requireNonNull(task));
+        listener = new MovementQueueListenerTask(entity,
+            Objects.requireNonNull(task));
 
         // Then submit it to the TaskManager!
         TaskManager.submit(listener);
@@ -77,8 +77,8 @@ public class MovementQueueListener {
     }
 
     /**
-     * The {@link ActionListener} implementation that will listen for the walking
-     * queue to finish.
+     * The {@link ActionListener} implementation that will listen for the
+     * walking queue to finish.
      * 
      * @author lare96
      */
@@ -106,8 +106,7 @@ public class MovementQueueListener {
 
         @Override
         public boolean listenWhile() {
-            return !(entity.getMovementQueue().isMovementDone() || entity
-                .isUnregistered());
+            return !(entity.getMovementQueue().isMovementDone() || entity.isUnregistered());
         }
 
         @Override

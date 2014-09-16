@@ -29,8 +29,7 @@ import com.asteria.world.entity.player.Player;
 public final class ServerEngine {
 
     /** A logger for printing information. */
-    private static Logger logger = Logger.getLogger(ServerEngine.class
-        .getSimpleName());
+    private static Logger logger = Logger.getLogger(ServerEngine.class.getSimpleName());
 
     /** The selector that selects keys ready to receive network events. */
     private static Selector selector;
@@ -39,7 +38,16 @@ public final class ServerEngine {
     private static ServerSocketChannel server;
 
     /** The maximum amount of packets to decode for a single player. */
-    public static final int PACKET_LIMIT = 15;
+    private static final int PACKET_LIMIT = 15;
+
+    /**
+     * The default constructor, will throw an
+     * {@link UnsupportedOperationException} if instantiated.
+     */
+    private ServerEngine() {
+        throw new UnsupportedOperationException(
+            "This class cannot be instantiated!");
+    }
 
     /**
      * Starts the core components of the reactor.
@@ -119,8 +127,7 @@ public final class ServerEngine {
                 try {
 
                     // Accept the connection.
-                    while ((socket = server.accept()) != null || loopsMade
-                        .get() <= 5) {
+                    while ((socket = server.accept()) != null || loopsMade.get() <= 5) {
 
                         // Increment the loop count.
                         loopsMade.incrementAndGet();
@@ -131,8 +138,7 @@ public final class ServerEngine {
                         }
 
                         // Block if we fail the security check.
-                        if (!HostGateway.enter(socket.socket().getInetAddress()
-                            .getHostAddress())) {
+                        if (!HostGateway.enter(socket.socket().getInetAddress().getHostAddress())) {
                             socket.close();
                             continue;
                         }
@@ -191,13 +197,11 @@ public final class ServerEngine {
                 // Decode the packet opcode and packet length.
                 if (session.getPacketOpcode() == -1) {
                     session.setPacketOpcode(session.getInData().get() & 0xff);
-                    session.setPacketOpcode(session.getPacketOpcode() - session
-                        .getDecryptor().getKey() & 0xff);
+                    session.setPacketOpcode(session.getPacketOpcode() - session.getDecryptor().getKey() & 0xff);
                 }
 
                 if (session.getPacketLength() == -1) {
-                    session.setPacketLength(Utility.PACKET_LENGTHS[session
-                        .getPacketOpcode()]);
+                    session.setPacketLength(Utility.PACKET_LENGTHS[session.getPacketOpcode()]);
 
                     if (session.getPacketLength() == -1) {
                         if (!session.getInData().hasRemaining()) {
@@ -206,37 +210,31 @@ public final class ServerEngine {
                             break;
                         }
 
-                        session
-                            .setPacketLength(session.getInData().get() & 0xff);
+                        session.setPacketLength(session.getInData().get() & 0xff);
                     }
                 }
 
                 // Handle the decoded packet and make sure all of the
                 // data is read
-                if (session.getInData().remaining() >= session
-                    .getPacketLength()) {
+                if (session.getInData().remaining() >= session.getPacketLength()) {
                     int positionBefore = session.getInData().position();
 
                     try {
-                        if (PacketDecoder.getPackets()[session
-                            .getPacketOpcode()] != null) {
+                        if (PacketDecoder.getPackets()[session.getPacketOpcode()] != null) {
 
                             if (session.getPacketCount() >= ServerEngine.PACKET_LIMIT) {
-                                logger
-                                    .warning(session.getPlayer() + " has decoded too many packets for this cycle!");
+                                logger.warning(session.getPlayer() + " has decoded too many packets for this cycle!");
                                 session.disconnect();
                                 break;
                             }
 
-                            PacketDecoder.getPackets()[session
-                                .getPacketOpcode()].decode(session.getPlayer(),
-                                new ProtocolBuffer(session.getInData()));
+                            PacketDecoder.getPackets()[session.getPacketOpcode()].decode(
+                                session.getPlayer(), new ProtocolBuffer(
+                                    session.getInData()));
                             session.incrementPacketCount();
                         } else {
                             if (Main.DEBUG)
-                                logger
-                                    .info(session.getPlayer() + " unhandled packet " + session
-                                        .getPacketOpcode());
+                                logger.info(session.getPlayer() + " unhandled packet " + session.getPacketOpcode());
                         }
                     } catch (Exception ex) {
                         ex.printStackTrace();
@@ -341,6 +339,4 @@ public final class ServerEngine {
             }
         }
     }
-
-    private ServerEngine() {}
 }

@@ -38,19 +38,16 @@ public abstract class PacketDecoder {
     public static void loadDecoders() throws Exception {
 
         // List all the files in the specified directory and loop through them.
-        File[] files = new File("./src/com/asteria/engine/net/packet/impl/")
-            .listFiles();
+        File[] files = new File("./src/com/asteria/engine/net/packet/impl/").listFiles();
 
         for (File file : files) {
-            Class<?> c = Class
-                .forName("com.asteria.engine.net.packet.impl." + file.getName()
-                    .replaceAll(".java", ""));
+            Class<?> c = Class.forName("com.asteria.engine.net.packet.impl." + file.getName().replaceAll(
+                ".java", ""));
 
             // Check if this class is a decoder.
             if (!(c.getSuperclass() == PacketDecoder.class)) {
                 throw new IllegalStateException(
-                    "Illegal packet decoder! Not an instance of PacketDecoder: " + file
-                        .getName());
+                    "Illegal packet decoder! Not an instance of PacketDecoder: " + file.getName());
             }
 
             // Create the decoder instance.

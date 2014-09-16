@@ -124,13 +124,12 @@ public enum CombatRangedAmmo {
             return Optional.of(CombatRangedAmmo.CRYSTAL_ARROW);
         }
 
-        int slot = player.getWeapon() == WeaponInterface.SHORTBOW || player
-            .getWeapon() == WeaponInterface.LONGBOW || player.getWeapon() == WeaponInterface.CROSSBOW ? Utility.EQUIPMENT_SLOT_ARROWS
+        int slot = player.getWeapon() == WeaponInterface.SHORTBOW || player.getWeapon() == WeaponInterface.LONGBOW || player.getWeapon() == WeaponInterface.CROSSBOW ? Utility.EQUIPMENT_SLOT_ARROWS
             : Utility.EQUIPMENT_SLOT_WEAPON;
 
         for (CombatRangedAmmo ammo : CombatRangedAmmo.values()) {
-            if (player.getEquipment().get(slot).getDefinition().getItemName()
-                .toLowerCase().contains(ammo.name.toLowerCase())) {
+            if (player.getEquipment().get(slot).getDefinition().getItemName().toLowerCase().contains(
+                ammo.name.toLowerCase())) {
                 return Optional.of(ammo);
             }
         }

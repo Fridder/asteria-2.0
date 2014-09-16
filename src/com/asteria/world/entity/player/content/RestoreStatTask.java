@@ -41,8 +41,7 @@ public class RestoreStatTask extends Task {
 
                 // Check if the hitpoints level needs regeneration.
                 if (i == Skills.HITPOINTS) {
-                    if (player.getSkills()[i].getLevel() < realLevel && player
-                        .isAcceptAid()) {
+                    if (player.getSkills()[i].getLevel() < realLevel && player.isAcceptAid()) {
                         player.getSkills()[i].increaseLevel(1);
 
                         if (CombatPrayer.isActivated(player,

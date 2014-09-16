@@ -404,8 +404,8 @@ public class CombatBuilder {
 
             // Stop if we reset the cooldown, or the victim becomes too out of
             // range.
-            if (builder.isCooldown() || !builder.entity.getPosition()
-                .isViewableFrom(victim.getPosition())) {
+            if (builder.isCooldown() || !builder.entity.getPosition().isViewableFrom(
+                victim.getPosition())) {
 
                 builder.reset();
                 this.cancel();
@@ -416,9 +416,7 @@ public class CombatBuilder {
             if (builder.entity.type() == EntityType.NPC) {
                 Npc npc = (Npc) builder.entity;
 
-                if (!npc.getPosition()
-                    .isViewableFrom(npc.getOriginalPosition()) && npc
-                    .getDefinition().isRetreats()) {
+                if (!npc.getPosition().isViewableFrom(npc.getOriginalPosition()) && npc.getDefinition().isRetreats()) {
                     npc.getMovementQueue().walk(npc.getOriginalPosition());
                     builder.reset();
                     this.cancel();
@@ -445,8 +443,7 @@ public class CombatBuilder {
             builder.victim = victim;
 
             // Start a new combat task if needed.
-            if (builder.getCombatTask() == null || !builder.getCombatTask()
-                .isRunning()) {
+            if (builder.getCombatTask() == null || !builder.getCombatTask().isRunning()) {
                 builder.setCombatTask(new CombatHookTask(builder));
                 TaskManager.submit(builder.getCombatTask());
             }

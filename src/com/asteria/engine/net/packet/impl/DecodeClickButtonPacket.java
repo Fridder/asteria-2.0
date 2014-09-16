@@ -32,8 +32,7 @@ public class DecodeClickButtonPacket extends PacketDecoder {
     // TODO: Proper actionbutton id's.
 
     /** A {@link Logger} for printing debugging info. */
-    private static Logger logger = Logger
-        .getLogger(DecodeClickButtonPacket.class.getSimpleName());
+    private static Logger logger = Logger.getLogger(DecodeClickButtonPacket.class.getSimpleName());
 
     @Override
     public void decode(Player player, ProtocolBuffer buf) {
@@ -231,10 +230,8 @@ public class DecodeClickButtonPacket extends PacketDecoder {
             }
 
             if (player.getLastCombat().elapsed() <= 10000) {
-                player
-                    .getPacketBuilder()
-                    .sendMessage(
-                        "You must wait 10 seconds after combat before logging out.");
+                player.getPacketBuilder().sendMessage(
+                    "You must wait 10 seconds after combat before logging out.");
                 return;
             }
 
@@ -268,12 +265,9 @@ public class DecodeClickButtonPacket extends PacketDecoder {
             if (player.getTradeSession().inTrade()) {
                 Player partner = player.getTradeSession().getPartner();
 
-                if (partner.getInventory().getRemainingSlots() < player
-                    .getTradeSession().getOffering().size()) {
-                    player
-                        .getPacketBuilder()
-                        .sendMessage(
-                            partner.getCapitalizedUsername() + " does not have enough free slots for this many items.");
+                if (partner.getInventory().getRemainingSlots() < player.getTradeSession().getOffering().size()) {
+                    player.getPacketBuilder().sendMessage(
+                        partner.getCapitalizedUsername() + " does not have enough free slots for this many items.");
                     return;
                 }
 
@@ -283,8 +277,7 @@ public class DecodeClickButtonPacket extends PacketDecoder {
                 partner.getPacketBuilder().sendString(
                     "Other player has accepted", 3431);
 
-                if (player.getTradeSession().getStage() == TradeStage.FIRST_ACCEPT && partner
-                    .getTradeSession().getStage() == TradeStage.FIRST_ACCEPT) {
+                if (player.getTradeSession().getStage() == TradeStage.FIRST_ACCEPT && partner.getTradeSession().getStage() == TradeStage.FIRST_ACCEPT) {
                     player.getTradeSession().openTradeConfirm();
                     partner.getTradeSession().openTradeConfirm();
                 }
@@ -300,8 +293,7 @@ public class DecodeClickButtonPacket extends PacketDecoder {
                 player.getPacketBuilder().sendString(
                     "Waiting for other player...", 3535);
 
-                if (player.getTradeSession().getStage() == TradeStage.FINAL_ACCEPT && partner
-                    .getTradeSession().getStage() == TradeStage.FINAL_ACCEPT) {
+                if (player.getTradeSession().getStage() == TradeStage.FINAL_ACCEPT && partner.getTradeSession().getStage() == TradeStage.FINAL_ACCEPT) {
                     player.getTradeSession().distributeItems();
                 }
             }
@@ -574,20 +566,16 @@ public class DecodeClickButtonPacket extends PacketDecoder {
                 if (player.getEquipment().getItemId(
                     Utility.EQUIPMENT_SLOT_WEAPON) == 4675) {
                     if (player.getSpellbook() != Spellbook.ANCIENT) {
-                        player
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "You can only autocast ancient magics with this staff.");
+                        player.getPacketBuilder().sendMessage(
+                            "You can only autocast ancient magics with this staff.");
                         return;
                     }
 
                     player.getPacketBuilder().sendSidebarInterface(0, 1689);
                 } else {
                     if (player.getSpellbook() != Spellbook.NORMAL) {
-                        player
-                            .getPacketBuilder()
-                            .sendMessage(
-                                "You can only autocast standard magics with this staff.");
+                        player.getPacketBuilder().sendMessage(
+                            "You can only autocast standard magics with this staff.");
                         return;
                     }
 
@@ -840,8 +828,7 @@ public class DecodeClickButtonPacket extends PacketDecoder {
                 player.getPacketBuilder().sendConfig(301, 0);
                 player.setSpecialActivated(false);
             } else {
-                if (player.getSpecialPercentage() < player.getCombatSpecial()
-                    .getDrainAmount()) {
+                if (player.getSpecialPercentage() < player.getCombatSpecial().getDrainAmount()) {
                     player.getPacketBuilder().sendMessage(
                         "You do not have enough special energy left!");
                     return;

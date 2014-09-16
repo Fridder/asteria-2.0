@@ -45,12 +45,9 @@ public final class PlayerUpdating {
 
         // Update other local players.
         out.writeBits(8, player.getLocalPlayers().size());
-        for (Iterator<Player> i = player.getLocalPlayers().iterator(); i
-            .hasNext();) {
+        for (Iterator<Player> i = player.getLocalPlayers().iterator(); i.hasNext();) {
             Player other = i.next();
-            if (other.getPosition().isViewableFrom(player.getPosition()) && other
-                .getSession().getStage() == Session.Stage.LOGGED_IN && !other
-                .isNeedsPlacement()) {
+            if (other.getPosition().isViewableFrom(player.getPosition()) && other.getSession().getStage() == Session.Stage.LOGGED_IN && !other.isNeedsPlacement()) {
                 PlayerUpdating.updateOtherPlayerMovement(other, out);
                 if (other.getFlags().isUpdateRequired()) {
                     PlayerUpdating.updateState(other, player, block, false,
@@ -73,12 +70,11 @@ public final class PlayerUpdating {
                 break;
             }
             Player other = World.getPlayers().get(i);
-            if (other == null || other == player || other.getSession()
-                .getStage() != Session.Stage.LOGGED_IN) {
+            if (other == null || other == player || other.getSession().getStage() != Session.Stage.LOGGED_IN) {
                 continue;
             }
-            if (!player.getLocalPlayers().contains(other) && other
-                .getPosition().isViewableFrom(player.getPosition())) {
+            if (!player.getLocalPlayers().contains(other) && other.getPosition().isViewableFrom(
+                player.getPosition())) {
                 added++;
                 player.getLocalPlayers().add(other);
                 PlayerUpdating.addPlayer(out, player, other);
@@ -110,8 +106,9 @@ public final class PlayerUpdating {
      *            the buffer.
      */
     public static void appendChat(Player player, ProtocolBuffer out) {
-        out.writeShort(((player.getChatColor() & 0xff) << 8) + (player
-            .getChatEffects() & 0xff), ProtocolBuffer.ByteOrder.LITTLE);
+        out.writeShort(
+            ((player.getChatColor() & 0xff) << 8) + (player.getChatEffects() & 0xff),
+            ProtocolBuffer.ByteOrder.LITTLE);
         out.writeByte(player.getRights().getProtocolValue());
         out.writeByte(player.getChatText().length, ProtocolBuffer.ValueType.C);
         out.writeBytesReverse(player.getChatText());
@@ -166,8 +163,7 @@ public final class PlayerUpdating {
                 block.writeShort(0x200 + player.getEquipment().getItemId(
                     Utility.EQUIPMENT_SLOT_CHEST));
             } else {
-                block
-                    .writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_CHEST]);
+                block.writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_CHEST]);
             }
 
             if (player.getEquipment().getItemId(Utility.EQUIPMENT_SLOT_SHIELD) > 1) {
@@ -179,59 +175,48 @@ public final class PlayerUpdating {
 
             if (player.getEquipment().getItemId(Utility.EQUIPMENT_SLOT_CHEST) > 1) {
 
-                if (!player.getEquipment().get(Utility.EQUIPMENT_SLOT_CHEST)
-                    .getDefinition().isPlatebody()) {
-                    block
-                        .writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_ARMS]);
+                if (!player.getEquipment().get(Utility.EQUIPMENT_SLOT_CHEST).getDefinition().isPlatebody()) {
+                    block.writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_ARMS]);
                 } else {
                     block.writeByte(0);
                 }
             } else {
-                block
-                    .writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_ARMS]);
+                block.writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_ARMS]);
             }
 
             if (player.getEquipment().getItemId(Utility.EQUIPMENT_SLOT_LEGS) > 1) {
                 block.writeShort(0x200 + player.getEquipment().getItemId(
                     Utility.EQUIPMENT_SLOT_LEGS));
             } else {
-                block
-                    .writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_LEGS]);
+                block.writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_LEGS]);
             }
 
-            if (player.getEquipment().getItemId(Utility.EQUIPMENT_SLOT_HEAD) > 1 && player
-                .getEquipment().get(Utility.EQUIPMENT_SLOT_HEAD)
-                .getDefinition().isFullHelm()) {
+            if (player.getEquipment().getItemId(Utility.EQUIPMENT_SLOT_HEAD) > 1 && player.getEquipment().get(
+                Utility.EQUIPMENT_SLOT_HEAD).getDefinition().isFullHelm()) {
                 block.writeByte(0);
             } else {
-                block
-                    .writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_HEAD]);
+                block.writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_HEAD]);
             }
 
             if (player.getEquipment().getItemId(Utility.EQUIPMENT_SLOT_HANDS) > 1) {
                 block.writeShort(0x200 + player.getEquipment().getItemId(
                     Utility.EQUIPMENT_SLOT_HANDS));
             } else {
-                block
-                    .writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_HANDS]);
+                block.writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_HANDS]);
             }
 
             if (player.getEquipment().getItemId(Utility.EQUIPMENT_SLOT_FEET) > 1) {
                 block.writeShort(0x200 + player.getEquipment().getItemId(
                     Utility.EQUIPMENT_SLOT_FEET));
             } else {
-                block
-                    .writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_FEET]);
+                block.writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_FEET]);
             }
 
             if (player.getGender() == Utility.GENDER_MALE) {
-                if (player.getEquipment()
-                    .getItemId(Utility.EQUIPMENT_SLOT_HEAD) > 1 && !player
-                    .getEquipment().get(Utility.EQUIPMENT_SLOT_HEAD)
-                    .getDefinition().isFullHelm() || player.getEquipment()
-                    .isSlotFree(Utility.EQUIPMENT_SLOT_HEAD)) {
-                    block
-                        .writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_BEARD]);
+                if (player.getEquipment().getItemId(Utility.EQUIPMENT_SLOT_HEAD) > 1 && !player.getEquipment().get(
+                    Utility.EQUIPMENT_SLOT_HEAD).getDefinition().isFullHelm() || player.getEquipment().isSlotFree(
+                    Utility.EQUIPMENT_SLOT_HEAD)) {
+                    block.writeShort(0x100 + player.getAppearance()[Utility.APPEARANCE_SLOT_BEARD]);
                 } else {
                     block.writeByte(0);
                 }
@@ -248,19 +233,16 @@ public final class PlayerUpdating {
         block.writeByte(player.getColors()[3]);
         block.writeByte(player.getColors()[4]);
 
-        block
-            .writeShort(player.getUpdateAnimation().getStandingAnimation() == -1 ? 0x328
-                : player.getUpdateAnimation().getStandingAnimation());
+        block.writeShort(player.getUpdateAnimation().getStandingAnimation() == -1 ? 0x328
+            : player.getUpdateAnimation().getStandingAnimation());
         block.writeShort(0x337);
-        block
-            .writeShort(player.getUpdateAnimation().getWalkingAnimation() == -1 ? 0x333
-                : player.getUpdateAnimation().getWalkingAnimation());
+        block.writeShort(player.getUpdateAnimation().getWalkingAnimation() == -1 ? 0x333
+            : player.getUpdateAnimation().getWalkingAnimation());
         block.writeShort(0x334);
         block.writeShort(0x335);
         block.writeShort(0x336);
-        block
-            .writeShort(player.getUpdateAnimation().getRunningAnimation() == -1 ? 0x338
-                : player.getUpdateAnimation().getRunningAnimation());
+        block.writeShort(player.getUpdateAnimation().getRunningAnimation() == -1 ? 0x338
+            : player.getUpdateAnimation().getRunningAnimation());
 
         block.writeLong(player.getUsernameHash());
         block.writeByte(player.getCombatLevel());
@@ -286,8 +268,8 @@ public final class PlayerUpdating {
         out.writeBit(true); // Discard walking queue(?)
 
         // Write the relative position.
-        Position delta = Utility.delta(player.getPosition(), other
-            .getPosition());
+        Position delta = Utility.delta(player.getPosition(),
+            other.getPosition());
         out.writeBits(5, delta.getY());
         out.writeBits(5, delta.getX());
     }
@@ -310,10 +292,8 @@ public final class PlayerUpdating {
         if (player.isNeedsPlacement()) { // Do they need placement?
 
             out.writeBit(true); // Yes, there is an update.
-            int posX = player.getPosition()
-                .getLocalX(player.getCurrentRegion());
-            int posY = player.getPosition()
-                .getLocalY(player.getCurrentRegion());
+            int posX = player.getPosition().getLocalX(player.getCurrentRegion());
+            int posY = player.getPosition().getLocalY(player.getCurrentRegion());
 
             appendPlacement(out, posX, posY, player.getPosition().getZ(),
                 player.isResetMovementQueue(), updateRequired);
@@ -551,8 +531,7 @@ public final class PlayerUpdating {
 
         out.writeByte(player.getSkills()[Skills.HITPOINTS].getLevel(),
             ValueType.C);
-        out.writeByte(player.getSkills()[Skills.HITPOINTS]
-            .getLevelForExperience());
+        out.writeByte(player.getSkills()[Skills.HITPOINTS].getLevelForExperience());
     }
 
     /**
@@ -577,8 +556,9 @@ public final class PlayerUpdating {
         }
 
         out.writeByte(player.getSkills()[Skills.HITPOINTS].getLevel());
-        out.writeByte(player.getSkills()[Skills.HITPOINTS]
-            .getLevelForExperience(), ValueType.C);
+        out.writeByte(
+            player.getSkills()[Skills.HITPOINTS].getLevelForExperience(),
+            ValueType.C);
     }
 
     /**

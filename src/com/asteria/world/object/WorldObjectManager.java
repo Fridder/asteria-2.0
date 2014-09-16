@@ -81,8 +81,7 @@ public class WorldObjectManager implements Iterable<WorldObject> {
      * @return the object on the position.
      */
     public static Optional<WorldObject> getObjectOnPosition(Position position) {
-        return objectSet.stream().filter(o -> position.equals(o.getPosition()))
-            .findFirst();
+        return objectSet.stream().filter(o -> position.equals(o.getPosition())).findFirst();
     }
 
     /**
@@ -98,8 +97,7 @@ public class WorldObjectManager implements Iterable<WorldObject> {
      */
     public static boolean valid(int objectId, Position position) {
         return objectSet.stream().filter(
-            o -> position.equals(o.getPosition()) && o.getId() == objectId)
-            .findFirst().isPresent();
+            o -> position.equals(o.getPosition()) && o.getId() == objectId).findFirst().isPresent();
     }
 
     /**
@@ -144,8 +142,8 @@ public class WorldObjectManager implements Iterable<WorldObject> {
                 int id = reader.get("id").getAsInt();
                 Position position = builder.fromJson(reader.get("position"),
                     Position.class);
-                WorldObject.Direction face = WorldObject.Direction
-                    .valueOf(reader.get("rotation").getAsString());
+                WorldObject.Direction face = WorldObject.Direction.valueOf(reader.get(
+                    "rotation").getAsString());
                 WorldObject.Type type = WorldObject.Type.valueOf(reader.get(
                     "type").getAsString());
 

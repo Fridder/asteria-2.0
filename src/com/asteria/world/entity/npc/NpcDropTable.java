@@ -150,9 +150,7 @@ public class NpcDropTable {
 
                 // Compare the roll against the bet.
                 if (rollRound <= rareDrop.getBet()) {
-                    System.out
-                        .println("RARE ITEM DROPPED[item = " + rareDrop
-                            .toItem().getDefinition().getItemName() + ", kills= " + (i + 1) + "]");
+                    System.out.println("RARE ITEM DROPPED[item = " + rareDrop.toItem().getDefinition().getItemName() + ", kills= " + (i + 1) + "]");
                     System.exit(0);
                 }
             }

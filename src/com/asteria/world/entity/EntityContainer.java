@@ -167,7 +167,6 @@ public class EntityContainer<E extends Entity> extends AbstractCollection<E> {
         return -1;
     }
 
-
     /**
      * Gets the amount of free slots left in this container. This method returns
      * a value equal to subtracting the {@link #capacity} by the {@link #size}.

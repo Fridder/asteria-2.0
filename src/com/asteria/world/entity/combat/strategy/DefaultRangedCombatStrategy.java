@@ -9,8 +9,8 @@ import com.asteria.world.entity.Projectile;
 import com.asteria.world.entity.UpdateFlags.Flag;
 import com.asteria.world.entity.combat.CombatContainer;
 import com.asteria.world.entity.combat.CombatFactory;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
 import com.asteria.world.entity.combat.CombatStrategy;
+import com.asteria.world.entity.combat.CombatType;
 import com.asteria.world.entity.combat.range.CombatRangedAmmo;
 import com.asteria.world.entity.combat.weapon.FightStyle;
 import com.asteria.world.entity.combat.weapon.FightType;
@@ -60,12 +60,12 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
                 break;
             }
 
-            entity.animation(new Animation(npc.getDefinition()
-                .getAttackAnimation()));
+            entity.animation(new Animation(
+                npc.getDefinition().getAttackAnimation()));
             entity.highGraphic(new Graphic(ammo.getGraphic()));
-            new Projectile(entity, victim, ammo.getProjectile(), ammo
-                .getDelay(), ammo.getSpeed(), ammo.getStartHeight(), ammo
-                .getEndHeight(), 0).sendProjectile();
+            new Projectile(entity, victim, ammo.getProjectile(),
+                ammo.getDelay(), ammo.getSpeed(), ammo.getStartHeight(),
+                ammo.getEndHeight(), 0).sendProjectile();
 
             return new CombatContainer(entity, victim, 1, CombatType.RANGED,
                 true);
@@ -91,9 +91,9 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
 
         if (!player.isSpecialActivated()) {
             player.highGraphic(new Graphic(ammo.getGraphic()));
-            new Projectile(player, victim, ammo.getProjectile(), ammo
-                .getDelay(), ammo.getSpeed(), ammo.getStartHeight(), ammo
-                .getEndHeight(), 0).sendProjectile();
+            new Projectile(player, victim, ammo.getProjectile(),
+                ammo.getDelay(), ammo.getSpeed(), ammo.getStartHeight(),
+                ammo.getEndHeight(), 0).sendProjectile();
         }
 
         // And finally create the combat container.
@@ -137,8 +137,8 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
             distance = 7;
             break;
         default:
-            throw new IllegalStateException("Invalid ranged weapon: " + player
-                .getWeapon().name());
+            throw new IllegalStateException(
+                "Invalid ranged weapon: " + player.getWeapon().name());
         }
 
         return distance + (player.getFightType().getStyle() == FightStyle.DEFENSIVE ? 2
@@ -153,12 +153,11 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
      *            the player to start the animation for.
      */
     private void startAnimation(Player player) {
-        if (player.getEquipment().get(Utility.EQUIPMENT_SLOT_WEAPON)
-            .getDefinition().getItemName().startsWith("Karils")) {
+        if (player.getEquipment().get(Utility.EQUIPMENT_SLOT_WEAPON).getDefinition().getItemName().startsWith(
+            "Karils")) {
             player.animation(new Animation(2075));
         } else {
-            player
-                .animation(new Animation(player.getFightType().getAnimation()));
+            player.animation(new Animation(player.getFightType().getAnimation()));
         }
     }
 
@@ -185,8 +184,7 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
         }
 
         // Check the arrows for each type of ranged weapon.
-        if (player.getWeapon() == WeaponInterface.SHORTBOW || player
-            .getWeapon() == WeaponInterface.LONGBOW) {
+        if (player.getWeapon() == WeaponInterface.SHORTBOW || player.getWeapon() == WeaponInterface.LONGBOW) {
             if (!CombatFactory.arrowsEquipped(player)) {
                 player.getPacketBuilder().sendMessage(
                     "You need to use arrows with your bow.");
@@ -194,17 +192,15 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
                 return false;
             }
         } else if (player.getWeapon() == WeaponInterface.CROSSBOW) {
-            if (player.getEquipment().get(Utility.EQUIPMENT_SLOT_WEAPON)
-                .getDefinition().getItemName().startsWith("Karils") && !item
-                .getDefinition().getItemName().endsWith("rack")) {
+            if (player.getEquipment().get(Utility.EQUIPMENT_SLOT_WEAPON).getDefinition().getItemName().startsWith(
+                "Karils") && !item.getDefinition().getItemName().endsWith(
+                "rack")) {
                 player.getPacketBuilder().sendMessage(
                     "You need to use bolt racks with this crossbow.");
                 player.getCombatBuilder().reset();
                 return false;
-            } else if (!player.getEquipment()
-                .get(Utility.EQUIPMENT_SLOT_WEAPON).getDefinition()
-                .getItemName().startsWith("Karils") && !CombatFactory
-                .boltsEquipped(player)) {
+            } else if (!player.getEquipment().get(Utility.EQUIPMENT_SLOT_WEAPON).getDefinition().getItemName().startsWith(
+                "Karils") && !CombatFactory.boltsEquipped(player)) {
                 player.getPacketBuilder().sendMessage(
                     "You need to use bolts with your crossbow.");
                 player.getCombatBuilder().reset();
@@ -223,8 +219,7 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
     private void decrementAmmo(Player player) {
 
         // Determine which slot we are decrementing ammo from.
-        int slot = player.getWeapon() == WeaponInterface.SHORTBOW || player
-            .getWeapon() == WeaponInterface.LONGBOW || player.getWeapon() == WeaponInterface.CROSSBOW ? Utility.EQUIPMENT_SLOT_ARROWS
+        int slot = player.getWeapon() == WeaponInterface.SHORTBOW || player.getWeapon() == WeaponInterface.LONGBOW || player.getWeapon() == WeaponInterface.CROSSBOW ? Utility.EQUIPMENT_SLOT_ARROWS
             : Utility.EQUIPMENT_SLOT_WEAPON;
 
         // Set the ammo we are currently using.

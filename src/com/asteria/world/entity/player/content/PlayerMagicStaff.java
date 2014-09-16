@@ -54,8 +54,7 @@ public enum PlayerMagicStaff {
                 if (player.getEquipment().containsAny(m.staves)) {
                     for (int id : m.runes) {
                         for (int i = 0; i < runesRequired.length; i++) {
-                            if (runesRequired[i] != null && runesRequired[i]
-                                .getId() == id) {
+                            if (runesRequired[i] != null && runesRequired[i].getId() == id) {
                                 runesRequired[i] = null;
                             }
                         }

@@ -94,8 +94,7 @@ public class EquipmentContainer extends ItemContainer {
         } else {
             int designatedSlot = item.getDefinition().getEquipmentSlot();
 
-            if (designatedSlot == Utility.EQUIPMENT_SLOT_WEAPON && item
-                .getDefinition().isTwoHanded()) {
+            if (designatedSlot == Utility.EQUIPMENT_SLOT_WEAPON && item.getDefinition().isTwoHanded()) {
                 unequipItem(Utility.EQUIPMENT_SLOT_SHIELD, true);
 
                 if (isSlotUsed(Utility.EQUIPMENT_SLOT_SHIELD)) {
@@ -104,8 +103,7 @@ public class EquipmentContainer extends ItemContainer {
             }
 
             if (designatedSlot == Utility.EQUIPMENT_SLOT_SHIELD && isSlotUsed(Utility.EQUIPMENT_SLOT_WEAPON)) {
-                if (get(Utility.EQUIPMENT_SLOT_WEAPON).getDefinition()
-                    .isTwoHanded()) {
+                if (get(Utility.EQUIPMENT_SLOT_WEAPON).getDefinition().isTwoHanded()) {
                     unequipItem(Utility.EQUIPMENT_SLOT_WEAPON, true);
 
                     if (isSlotUsed(Utility.EQUIPMENT_SLOT_WEAPON)) {

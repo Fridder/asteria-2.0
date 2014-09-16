@@ -67,8 +67,7 @@ public final class WorldObject {
         public static Direction forId(int id) {
 
             // Will throw a 'NoSuchElementException' if an invalid id was given.
-            return Arrays.stream(values()).filter(d -> d.id == id).findFirst()
-                .get();
+            return Arrays.stream(values()).filter(d -> d.id == id).findFirst().get();
         }
     }
 
@@ -145,8 +144,7 @@ public final class WorldObject {
         public static Type forId(int id) {
 
             // Will throw a 'NoSuchElementException' if an invalid id was given.
-            return Arrays.stream(values()).filter(t -> t.id == id).findFirst()
-                .get();
+            return Arrays.stream(values()).filter(t -> t.id == id).findFirst().get();
         }
     }
 

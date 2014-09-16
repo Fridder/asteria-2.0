@@ -69,10 +69,8 @@ public class Fishing extends SkillRepeatingAction implements SkillAnimationTask 
 
         // Cancel if we aren't a high enough level. */
         if (!player.getSkills()[Skills.FISHING].reqLevel(tool.getLevel())) {
-            player
-                .getPacketBuilder()
-                .sendMessage(
-                    "You must have a fishing level of " + tool.getLevel() + " to fish with this.");
+            player.getPacketBuilder().sendMessage(
+                "You must have a fishing level of " + tool.getLevel() + " to fish with this.");
             task.cancel();
             return;
         }
@@ -139,10 +137,8 @@ public class Fishing extends SkillRepeatingAction implements SkillAnimationTask 
 
         // Don't fish if we aren't a high enough level to use the tool.
         if (!player.getSkills()[Skills.FISHING].reqLevel(tool.getLevel())) {
-            player
-                .getPacketBuilder()
-                .sendMessage(
-                    "You must have a fishing level of " + tool.getLevel() + " to fish with this.");
+            player.getPacketBuilder().sendMessage(
+                "You must have a fishing level of " + tool.getLevel() + " to fish with this.");
             return false;
         }
 
@@ -196,10 +192,9 @@ public class Fishing extends SkillRepeatingAction implements SkillAnimationTask 
 
         // Construct a dummy list to hold data and dump values into it.
         ArrayList<Fish> list = new ArrayList<>();
-        Arrays.stream(player.getFishingTool().getFish())
-            .filter(
-                f -> f.getLevel() <= player.getSkills()[Skills.FISHING]
-                    .getLevel() && f.isCatchable(player)).forEach(list::add);
+        Arrays.stream(player.getFishingTool().getFish()).filter(
+            f -> f.getLevel() <= player.getSkills()[Skills.FISHING].getLevel() && f.isCatchable(player)).forEach(
+            list::add);
 
         // Shuffle the list before using it so its completely random, we also
         // calculate the percentage gamble from now.
@@ -208,8 +203,7 @@ public class Fishing extends SkillRepeatingAction implements SkillAnimationTask 
 
         // Do comparisons to see if we can determine a fish, if not then return
         // the default fish.
-        Optional<Fish> found = list.stream().filter(f -> f.getChance() >= d)
-            .findFirst();
+        Optional<Fish> found = list.stream().filter(f -> f.getChance() >= d).findFirst();
         return found.orElse(player.getFishingTool().defaultFish());
     }
 
@@ -225,8 +219,7 @@ public class Fishing extends SkillRepeatingAction implements SkillAnimationTask 
 
         // Here we the fishing time in ticks based on level and the fishing
         // tool.
-        int calc = (10 - (int) Math.floor(player.getSkills()[Skills.FISHING]
-            .getLevel() / 10));
+        int calc = (10 - (int) Math.floor(player.getSkills()[Skills.FISHING].getLevel() / 10));
         return player.getFishingTool().getSpeed() + calc;
     }
 
@@ -258,11 +251,9 @@ public class Fishing extends SkillRepeatingAction implements SkillAnimationTask 
                     Fish f = determineFish(player);
 
                     player.getPacketBuilder().sendMessage(
-                        "You catch " + Utility.appendIndefiniteArticle(f
-                            .getName()) + ".");
+                        "You catch " + Utility.appendIndefiniteArticle(f.getName()) + ".");
                     player.getInventory().add(new Item(f.getId()));
-                    Skills
-                        .experience(player, f.getExperience(), Skills.FISHING);
+                    Skills.experience(player, f.getExperience(), Skills.FISHING);
                 }
             }
 
@@ -361,7 +352,7 @@ public class Fishing extends SkillRepeatingAction implements SkillAnimationTask 
             // it.
             Fish f = determineFish(player);
             player.getPacketBuilder().sendMessage(
-                    "You catch " + Utility.appendIndefiniteArticle(f.getName()) + ".");
+                "You catch " + Utility.appendIndefiniteArticle(f.getName()) + ".");
             player.getInventory().add(new Item(f.getId()));
             Skills.experience(player, f.getExperience(), Skills.FISHING);
 
@@ -575,8 +566,7 @@ public class Fishing extends SkillRepeatingAction implements SkillAnimationTask 
          * @return the formatted version of this contant's name.
          */
         public String getName() {
-            return Utility
-                .capitalize(name().toLowerCase().replaceAll("_", " "));
+            return Utility.capitalize(name().toLowerCase().replaceAll("_", " "));
         }
     }
 }

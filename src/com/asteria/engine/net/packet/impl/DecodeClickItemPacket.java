@@ -28,8 +28,7 @@ public class DecodeClickItemPacket extends PacketDecoder {
         int slot = buf.readShort(false, ValueType.A);
         int id = buf.readShort(false, ByteOrder.LITTLE);
 
-        if (slot < 0 || container < 0 || id < 0 || id > ItemDefinition
-            .getDefinitions().length) {
+        if (slot < 0 || container < 0 || id < 0 || id > ItemDefinition.getDefinitions().length) {
             return;
         }
 

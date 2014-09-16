@@ -82,7 +82,6 @@ public class CombatPrayerTask extends Task {
      * @return the amount of ticks needed to drain 1 level of prayer.
      */
     private int calculateDrainRate(CombatPrayer prayer) {
-        return (player.getBonus()[Utility.BONUS_PRAYER] / 2) + prayer
-            .getDrainRate();
+        return (player.getBonus()[Utility.BONUS_PRAYER] / 2) + prayer.getDrainRate();
     }
 }

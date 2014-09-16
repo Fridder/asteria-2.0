@@ -5,8 +5,8 @@ import com.asteria.world.entity.Animation;
 import com.asteria.world.entity.Entity;
 import com.asteria.world.entity.Entity.EntityType;
 import com.asteria.world.entity.combat.CombatContainer;
-import com.asteria.world.entity.combat.CombatFactory.CombatType;
 import com.asteria.world.entity.combat.CombatStrategy;
+import com.asteria.world.entity.combat.CombatType;
 import com.asteria.world.entity.combat.weapon.FightType;
 import com.asteria.world.entity.npc.Npc;
 import com.asteria.world.entity.player.Player;
@@ -72,12 +72,11 @@ public class DefaultMeleeCombatStrategy implements CombatStrategy {
     private void startAnimation(Entity entity) {
         if (entity.type() == EntityType.NPC) {
             Npc npc = (Npc) entity;
-            npc.animation(new Animation(npc.getDefinition()
-                .getAttackAnimation()));
+            npc.animation(new Animation(
+                npc.getDefinition().getAttackAnimation()));
         } else if (entity.type() == EntityType.PLAYER) {
             Player player = (Player) entity;
-            Item item = player.getEquipment()
-                .get(Utility.EQUIPMENT_SLOT_WEAPON);
+            Item item = player.getEquipment().get(Utility.EQUIPMENT_SLOT_WEAPON);
 
             if (!player.isSpecialActivated() && item != null) {
                 if (item.getDefinition().getItemName().startsWith(
@@ -97,8 +96,8 @@ public class DefaultMeleeCombatStrategy implements CombatStrategy {
                     "Tzhaar-ket-om")) {
                     player.animation(new Animation(2661));
                 } else if (item.getDefinition().getItemName().endsWith("wand")) {
-                    player.animation(new Animation(FightType.UNARMED_KICK
-                        .getAnimation()));
+                    player.animation(new Animation(
+                        FightType.UNARMED_KICK.getAnimation()));
                 } else if (item.getDefinition().getItemName().startsWith(
                     "Torags")) {
                     player.animation(new Animation(2068));
@@ -106,12 +105,12 @@ public class DefaultMeleeCombatStrategy implements CombatStrategy {
                     "Veracs")) {
                     player.animation(new Animation(2062));
                 } else {
-                    player.animation(new Animation(player.getFightType()
-                        .getAnimation()));
+                    player.animation(new Animation(
+                        player.getFightType().getAnimation()));
                 }
             } else {
-                player.animation(new Animation(player.getFightType()
-                    .getAnimation()));
+                player.animation(new Animation(
+                    player.getFightType().getAnimation()));
             }
         }
     }

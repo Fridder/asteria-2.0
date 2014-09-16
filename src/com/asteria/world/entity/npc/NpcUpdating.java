@@ -55,8 +55,8 @@ public class NpcUpdating {
         // Update the local NPC list itself.
         int added = 0;
         for (Npc npc : World.getNpcs()) {
-            if (npc == null || added == 15 || player.getLocalNpcs().size() >= 255 || player
-                .getLocalNpcs().contains(npc)) {
+            if (npc == null || added == 15 || player.getLocalNpcs().size() >= 255 || player.getLocalNpcs().contains(
+                npc)) {
                 continue;
             }
 

@@ -102,8 +102,7 @@ public final class Benchmark {
 
                     // Write all of the data to the beginning of the file.
                     writer.write("[" + name + "] " + date + "\n");
-                    writer
-                        .write("[" + name + "] Benchmarks in " + unit.name() + ":\n[");
+                    writer.write("[" + name + "] Benchmarks in " + unit.name() + ":\n[");
                     long collections = 0, total = 0;
 
                     for (long l : benchmarks) {
@@ -113,14 +112,10 @@ public final class Benchmark {
                         writer.write(", ");
                     }
                     writer.write("]\n");
-                    writer
-                        .write("[" + name + "] Average in " + unit.name() + ": " + (total / collections) + "\n");
-                    writer.write("[" + name + "] Memory usage: " + (Math
-                        .round((Runtime.getRuntime().maxMemory() - Runtime
-                            .getRuntime().freeMemory()) / 1.0 * Math
-                            .pow(10, -6) * 1000.0) / 1000.0) + "mb\n");
-                    writer.write("[" + name + "] Processors: " + Runtime
-                        .getRuntime().availableProcessors() + "\n\n\n");
+                    writer.write("[" + name + "] Average in " + unit.name() + ": " + (total / collections) + "\n");
+                    writer.write("[" + name + "] Memory usage: " + (Math.round((Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1.0 * Math.pow(
+                        10, -6) * 1000.0) / 1000.0) + "mb\n");
+                    writer.write("[" + name + "] Processors: " + Runtime.getRuntime().availableProcessors() + "\n\n\n");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

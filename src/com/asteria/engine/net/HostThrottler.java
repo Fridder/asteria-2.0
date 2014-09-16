@@ -12,11 +12,10 @@ import com.asteria.util.Stopwatch;
  * 
  * @author lare96
  */
-public class HostThrottler {
+public final class HostThrottler {
 
     /** A logger for printing debugging info. */
-    private static Logger logger = Logger.getLogger(HostThrottler.class
-        .getSimpleName());
+    private static Logger logger = Logger.getLogger(HostThrottler.class.getSimpleName());
 
     /** A map of hosts and their respective timers. */
     private static Map<String, Stopwatch> timeMap = new ConcurrentHashMap<>();
@@ -25,14 +24,18 @@ public class HostThrottler {
      * The maximum amount of connections allowed per
      * <code>THROTTLE_TIME_INTERVAL_MILLISECONDS</code> for a single host.
      */
-    public static final int AMOUNT_OF_CONNECTIONS_PER_INTERVAL = 1;
+    private static final int AMOUNT_OF_CONNECTIONS_PER_INTERVAL = 1;
 
     /** The amount of time the host must wait to connect in intervals. */
-    public static final int THROTTLE_TIME_INTERVAL_MILLISECONDS = 1000;
+    private static final int THROTTLE_TIME_INTERVAL_MILLISECONDS = 1000;
 
-    /** This class cannot be instantiated. */
+    /**
+     * The default constructor, will throw an
+     * {@link UnsupportedOperationException} if instantiated.
+     */
     private HostThrottler() {
-
+        throw new UnsupportedOperationException(
+            "This class cannot be instantiated!");
     }
 
     /**
@@ -62,8 +65,7 @@ public class HostThrottler {
             // <code>AMOUNT_OF_CONNECTIONS_PER_SECOND</code> then the host is
             // connecting too fast.
             if (time < THROTTLE_TIME_INTERVAL_MILLISECONDS && connection >= AMOUNT_OF_CONNECTIONS_PER_INTERVAL) {
-                logger
-                    .warning("Session request from " + host + " denied: connecting too fast!");
+                logger.warning("Session request from " + host + " denied: connecting too fast!");
                 return false;
             }
 

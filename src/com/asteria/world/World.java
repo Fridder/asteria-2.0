@@ -1,17 +1,18 @@
 package com.asteria.world;
 
 import java.util.Optional;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Phaser;
-import java.util.concurrent.ThreadPoolExecutor;
 
+import com.asteria.engine.BlockingThreadPool;
 import com.asteria.engine.GameEngine;
-import com.asteria.engine.ThreadPoolBuilder;
-import com.asteria.engine.ThreadPoolBuilder.BlockingThreadPool;
 import com.asteria.engine.net.Session.Stage;
 import com.asteria.world.entity.EntityContainer;
 import com.asteria.world.entity.npc.Npc;
 import com.asteria.world.entity.player.Player;
-import com.asteria.world.entity.player.PlayerFileTask.WritePlayerFileTask;
+import com.asteria.world.entity.player.WritePlayerFileTask;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * Updates all in-game entities, and also contains utility methods to manage
@@ -22,19 +23,28 @@ import com.asteria.world.entity.player.PlayerFileTask.WritePlayerFileTask;
 public final class World {
 
     /** All of the registered players. */
-    private static final EntityContainer<Player> players = new EntityContainer<>(
-        1000);
+    private static EntityContainer<Player> players = new EntityContainer<>(1000);
 
     /** All of the registered NPCs. */
-    private static final EntityContainer<Npc> npcs = new EntityContainer<>(1500);
+    private static EntityContainer<Npc> npcs = new EntityContainer<>(1500);
 
-    /** Used to block the game thread until updating is completed. */
-    private static final Phaser synchronizer = new Phaser(1);
+    /** Used to block the game thread until updating has completed. */
+    private static Phaser synchronizer = new Phaser(1);
 
     /** A thread pool that will update players in parallel. */
-    private static final ThreadPoolExecutor updateExecutor = ThreadPoolBuilder
-        .build("Update-Thread", Runtime.getRuntime().availableProcessors(),
-            Thread.MAX_PRIORITY);
+    private static ExecutorService updateExecutor = Executors.newFixedThreadPool(
+        Runtime.getRuntime().availableProcessors(),
+        new ThreadFactoryBuilder().setNameFormat("UpdateThread").setPriority(
+            Thread.MAX_PRIORITY).build());
+
+    /**
+     * The default constructor, will throw an
+     * {@link UnsupportedOperationException} if instantiated.
+     */
+    private World() {
+        throw new UnsupportedOperationException(
+            "This class cannot be instantiated!");
+    }
 
     /**
      * The method that executes code for all in game entities every <tt>600</tt>
@@ -91,8 +101,7 @@ public final class World {
      *         {@code null} if no such player exists.
      */
     public static Optional<Player> getPlayerByName(String username) {
-        return players.search(p -> p != null && p.getUsername()
-            .equals(username));
+        return players.search(p -> p != null && p.getUsername().equals(username));
     }
 
     /**
@@ -118,7 +127,7 @@ public final class World {
             // players are saved.
             BlockingThreadPool pool = new BlockingThreadPool();
             players.forEach(p -> pool.append(new WritePlayerFileTask(p)));
-            pool.fireAndAwait();
+            pool.awaitCompletion();
 
             // Terminate any thread pools.
             updateExecutor.shutdown();
@@ -146,8 +155,7 @@ public final class World {
         }
 
         // Push the save task to the sequential pool.
-        GameEngine.getServiceExecutor()
-            .execute(new WritePlayerFileTask(player));
+        GameEngine.getServiceExecutor().execute(new WritePlayerFileTask(player));
     }
 
     /**
@@ -167,6 +175,4 @@ public final class World {
     public static EntityContainer<Npc> getNpcs() {
         return npcs;
     }
-
-    private World() {}
 }

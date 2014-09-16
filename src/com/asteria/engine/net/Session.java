@@ -19,7 +19,7 @@ import com.asteria.world.entity.combat.effect.CombatSkullEffect;
 import com.asteria.world.entity.combat.effect.CombatTeleblockEffect;
 import com.asteria.world.entity.combat.prayer.CombatPrayer;
 import com.asteria.world.entity.player.Player;
-import com.asteria.world.entity.player.PlayerFileTask.ReadPlayerFileTask;
+import com.asteria.world.entity.player.ReadPlayerFileTask;
 import com.asteria.world.entity.player.content.WeaponAnimations;
 import com.asteria.world.entity.player.content.WeaponInterfaces;
 import com.asteria.world.entity.player.minigame.Minigames;
@@ -34,20 +34,20 @@ import com.asteria.world.entity.player.skill.Skills;
 public final class Session {
 
     /** If RSA should be decoded in the login block. */
-    public static final boolean DECODE_RSA = true;
+    private static final boolean DECODE_RSA = true;
 
     /**
      * Players that don't have a username equal to
      * <code>SOCKET_FLOOD_USERNAME</code> are moved within 200 squares of the
      * home area on login.
      */
-    public static final boolean SOCKET_FLOOD = false;
+    private static final boolean SOCKET_FLOOD = false;
 
     /**
      * Players that don't have this username are moved within 200 squares of the
      * home area on login, if the <code>SOCKET_FLOOD</code> boolean is flagged.
      */
-    public static final String SOCKET_FLOOD_USERNAME = "lare96";
+    private static final String SOCKET_FLOOD_USERNAME = "lare96";
 
     /** The private RSA modulus and exponent key pairs. */
     private static final BigInteger RSA_MODULUS = new BigInteger(
@@ -56,8 +56,7 @@ public final class Session {
             "58942123322685908809689084302625256728774551587748168286651364002223076520293763732441711633712538400732268844501356343764421742749024359146319836858905124072353297696448255112361453630421295623429362610999525258756790291981270575779800669035081348981858658116089267888135561190976376091835832053427710797233");
 
     /** A logger for printing debugging info. */
-    private static Logger logger = Logger.getLogger(Session.class
-        .getSimpleName());
+    private static Logger logger = Logger.getLogger(Session.class.getSimpleName());
 
     /** The selection key assigned for this session. */
     private SelectionKey key;
@@ -127,8 +126,7 @@ public final class Session {
 
         if (key != null) {
             socketChannel = (SocketChannel) key.channel();
-            host = socketChannel.socket().getInetAddress().getHostAddress()
-                .toLowerCase();
+            host = socketChannel.socket().getInetAddress().getHostAddress().toLowerCase();
             player = new Player(this);
             packetBuilder = new PacketEncoder(player);
         }
@@ -227,8 +225,7 @@ public final class Session {
                 in.getBuffer().get(encryptionBytes);
 
                 ByteBuffer rsaBuffer = ByteBuffer.wrap(new BigInteger(
-                    encryptionBytes).modPow(RSA_EXPONENT, RSA_MODULUS)
-                    .toByteArray());
+                    encryptionBytes).modPow(RSA_EXPONENT, RSA_MODULUS).toByteArray());
 
                 // Check if RSA block can be decoded.
                 int rsaOpcode = rsaBuffer.get();
@@ -290,9 +287,7 @@ public final class Session {
             password = password.toLowerCase();
 
             // Make sure the account credentials are valid.
-            boolean invalidCredentials = !username
-                .matches("^[a-zA-Z0-9_ ]{1,12}$") || password.isEmpty() || password
-                .length() > 20;
+            boolean invalidCredentials = !username.matches("^[a-zA-Z0-9_ ]{1,12}$") || password.isEmpty() || password.length() > 20;
 
             // Create the initial response code.
             int response = invalidCredentials ? Utility.LOGIN_RESPONSE_INVALID_CREDENTIALS
@@ -356,8 +351,8 @@ public final class Session {
             packetBuilder.sendSidebarInterface(3, 3213);
             packetBuilder.sendSidebarInterface(4, 1644);
             packetBuilder.sendSidebarInterface(5, 5608);
-            packetBuilder.sendSidebarInterface(6, player.getSpellbook()
-                .getSidebarInterface());
+            packetBuilder.sendSidebarInterface(6,
+                player.getSpellbook().getSidebarInterface());
             packetBuilder.sendSidebarInterface(8, 5065);
             packetBuilder.sendSidebarInterface(9, 5715);
             packetBuilder.sendSidebarInterface(10, 2449);
@@ -426,8 +421,8 @@ public final class Session {
                 Utility.EQUIPMENT_SLOT_WEAPON));
 
             // Last but not least, send client configurations.
-            packetBuilder.sendConfig(173, player.getMovementQueue()
-                .isRunToggled() ? 1 : 0);
+            packetBuilder.sendConfig(173,
+                player.getMovementQueue().isRunToggled() ? 1 : 0);
             packetBuilder.sendConfig(172, player.isAutoRetaliate() ? 0 : 1);
             packetBuilder.sendConfig(player.getFightType().getParentId(),
                 player.getFightType().getChildId());

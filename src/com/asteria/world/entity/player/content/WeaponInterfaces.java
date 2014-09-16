@@ -271,8 +271,8 @@ public final class WeaponInterfaces {
             @Override
             public void load(JsonObject reader, Gson builder) {
                 int id = reader.get("item-id").getAsInt();
-                WeaponInterface animation = builder.fromJson(reader
-                    .get("interface"), WeaponInterface.class);
+                WeaponInterface animation = builder.fromJson(
+                    reader.get("interface"), WeaponInterface.class);
                 interfaces.put(id, animation);
             }
 

@@ -8,10 +8,10 @@ import java.util.concurrent.TimeUnit;
  * 
  * @author lare96
  */
-public final class Stopwatch {
+public class Stopwatch {
 
     /** The internal cached time for this stopwatch. */
-    private long time = getTime();
+    private long time = Stopwatch.currentTime();
 
     /**
      * Resets the internal cached time, but instead of resetting it to
@@ -22,7 +22,7 @@ public final class Stopwatch {
      * @return the stopwatch instance.
      */
     public Stopwatch reset(long start) {
-        time = getTime() - start;
+        time = Stopwatch.currentTime() - start;
         return this;
     }
 
@@ -32,7 +32,7 @@ public final class Stopwatch {
      * @return the stopwatch instance.
      */
     public Stopwatch reset() {
-        time = getTime();
+        time = Stopwatch.currentTime();
         return this;
     }
 
@@ -43,7 +43,7 @@ public final class Stopwatch {
      * @return the elapsed time in <code>MILLISECONDS</code>.
      */
     public long elapsed() {
-        return getTime() - time;
+        return Stopwatch.currentTime() - time;
     }
 
     /**
@@ -69,7 +69,7 @@ public final class Stopwatch {
      * 
      * @return the current time, in milliseconds.
      */
-    private long getTime() {
+    public static long currentTime() {
         return TimeUnit.MILLISECONDS.convert(System.nanoTime(),
             TimeUnit.NANOSECONDS);
     }

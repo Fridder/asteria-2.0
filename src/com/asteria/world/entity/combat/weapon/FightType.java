@@ -226,8 +226,7 @@ public enum FightType {
     public static void assign(Player player) {
 
         for (FightType fightType : player.getWeapon().getFightType()) {
-            if (fightType.getTrainType() == player.getFightType()
-                .getTrainType()) {
+            if (fightType.getTrainType() == player.getFightType().getTrainType()) {
                 player.setFightType(fightType);
                 player.getPacketBuilder().sendConfig(
                     player.getFightType().getParentId(),

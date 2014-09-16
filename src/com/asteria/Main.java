@@ -42,6 +42,15 @@ public final class Main {
     public static final boolean DEBUG = true;
 
     /**
+     * The default constructor, will throw an
+     * {@link UnsupportedOperationException} if instantiated.
+     */
+    private Main() {
+        throw new UnsupportedOperationException(
+            "This class cannot be instantiated!");
+    }
+
+    /**
      * The main method of this server.
      * 
      * @param args
@@ -81,8 +90,7 @@ public final class Main {
             logger.info("The engine is now running!");
 
             // Asteria is now online!
-            logger
-                .info(NAME + " is now online! [took " + timer.elapsed() + "ms]");
+            logger.info(NAME + " is now online! [took " + timer.elapsed() + "ms]");
 
             // Start miscellaneous tasks.
             TaskManager.submit(new RestoreStatTask());
@@ -94,6 +102,4 @@ public final class Main {
                 "An error occured while starting " + Main.NAME + "!", e);
         }
     }
-
-    private Main() {}
 }

@@ -66,15 +66,12 @@ public final class NpcAggression {
                 NPC_TARGET_DISTANCE)) {
 
                 // Check if the aggressive npc is attacking or being attacked.
-                if (npc.getCombatBuilder().isAttacking() || npc
-                    .getCombatBuilder().isBeingAttacked() || npc.equals(entity)) {
+                if (npc.getCombatBuilder().isAttacking() || npc.getCombatBuilder().isBeingAttacked() || npc.equals(entity)) {
                     continue;
                 }
 
                 // Check if the entity is attacking or being attacked.
-                if (!Location.inMultiCombat(entity) && entity
-                    .getCombatBuilder().isAttacking() || entity
-                    .getCombatBuilder().isBeingAttacked()) {
+                if (!Location.inMultiCombat(entity) && entity.getCombatBuilder().isAttacking() || entity.getCombatBuilder().isBeingAttacked()) {
                     npc.getMovementCoordinator().setCoordinate(
                         npc.isOriginalRandomWalk());
                     continue;
@@ -90,9 +87,7 @@ public final class NpcAggression {
                             npc.isOriginalRandomWalk());
                         continue;
                     }
-                    if (!(player.getCombatLevel() <= (npc.getDefinition()
-                        .getCombatLevel() * 2)) && !Location
-                        .inWilderness(player)) {
+                    if (!(player.getCombatLevel() <= (npc.getDefinition().getCombatLevel() * 2)) && !Location.inWilderness(player)) {
                         npc.getMovementCoordinator().setCoordinate(
                             npc.isOriginalRandomWalk());
                         continue;
