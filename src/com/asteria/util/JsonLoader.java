@@ -16,28 +16,6 @@ import com.google.gson.JsonParser;
  */
 public abstract class JsonLoader {
 
-    /** Used for parsing the actual file. */
-    private JsonParser parser;
-
-    /** Holds all of the elements of the parsed file. */
-    private JsonArray array;
-
-    /** Used to extract the data from the parsed elements. */
-    private Gson builder;
-
-    /**
-     * Create a new {@link JsonLoader}.
-     * 
-     * @throws Exception
-     *             if any exceptions occur while creating the loader.
-     */
-    public JsonLoader() throws Exception {
-        this.parser = new JsonParser();
-        this.array = (JsonArray) parser.parse(new FileReader(Paths.get(
-            filePath()).toFile()));
-        this.builder = new GsonBuilder().create();
-    }
-
     /**
      * Allows the user to read and/or modify the parsed data.
      * 
@@ -64,9 +42,17 @@ public abstract class JsonLoader {
      *             if any exception occur while loading the parsed data.
      */
     public JsonLoader load() throws Exception {
-        for (int i = 0; i < array.size(); i++) {
-            JsonObject reader = (JsonObject) array.get(i);
-            load(reader, builder);
+        try (
+            FileReader fileReader = new FileReader(
+                Paths.get(filePath()).toFile())) {
+            JsonParser parser = new JsonParser();
+            JsonArray array = (JsonArray) parser.parse(fileReader);
+            Gson builder = new GsonBuilder().create();
+
+            for (int i = 0; i < array.size(); i++) {
+                JsonObject reader = (JsonObject) array.get(i);
+                load(reader, builder);
+            }
         }
         return this;
     }

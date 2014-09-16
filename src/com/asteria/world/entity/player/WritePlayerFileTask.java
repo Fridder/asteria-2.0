@@ -45,22 +45,20 @@ public class WritePlayerFileTask implements Runnable {
         synchronized (player) {
 
             // Create the path and file objects.
-            Path path = Paths.get("data/players",
+            Path path = Paths.get("./data/players/",
                 player.getUsername() + ".json");
             File file = path.toFile();
+            file.getParentFile().setWritable(true);
 
             // Attempt to make the player save directory if it doesn't
             // exist.
             if (!file.getParentFile().exists()) {
-
-                // We cannot create the directory, notify the user of that.
-                if (!file.getParentFile().canWrite()) {
-                    logger.severe("Unable to create save directory! Please manually make a folder entitled 'players' in './data/'.");
-                    return;
+                try {
+                    file.getParentFile().mkdirs();
+                } catch (SecurityException e) {
+                    logger.log(Level.SEVERE,
+                        "Unable to create directory for player data!", e);
                 }
-
-                // Otherwise create the directory.
-                file.getParentFile().mkdirs();
             }
 
             try (FileWriter writer = new FileWriter(file)) {
