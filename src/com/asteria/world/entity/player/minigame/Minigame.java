@@ -1,6 +1,7 @@
 package com.asteria.world.entity.player.minigame;
 
 import com.asteria.world.entity.Entity;
+import com.asteria.world.entity.Entity.EntityType;
 import com.asteria.world.entity.player.Player;
 import com.asteria.world.item.Item;
 import com.asteria.world.map.Position;
@@ -114,7 +115,7 @@ public abstract class Minigame {
      * @return false by default.
      */
     public boolean canHit(Player player, Entity other) {
-        return false;
+        return other.type() == EntityType.NPC;
     }
 
     /**

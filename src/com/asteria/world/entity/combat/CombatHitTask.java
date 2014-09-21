@@ -76,7 +76,7 @@ public class CombatHitTask extends Task {
                 (damage = container.dealDamage()));
         }
 
-        // Give experience based on the hits
+        // Give experience based on the hits.
         CombatFactory.giveExperience(builder, container, damage);
 
         // Now here's what we do if the container is or isn't accurate.
@@ -132,10 +132,6 @@ public class CombatHitTask extends Task {
 
         // Fire the container's dynamic hit method.
         container.onHit(damage, container.isAccurate());
-
-        // Reset combat for the victim.
-        victim.getLastCombat().reset();
-        victim.getCombatBuilder().setLastAttacker(attacker);
 
         // And finally auto-retaliate if needed.
         if (victim.isAutoRetaliate() && !victim.getCombatBuilder().isAttacking()) {
