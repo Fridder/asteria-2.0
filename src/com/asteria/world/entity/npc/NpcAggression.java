@@ -87,7 +87,7 @@ public final class NpcAggression {
                             npc.isOriginalRandomWalk());
                         continue;
                     }
-                    if (!(player.getCombatLevel() <= (npc.getDefinition().getCombatLevel() * 2)) && !Location.inWilderness(player)) {
+                    if (player.getCombatLevel() > (npc.getDefinition().getCombatLevel() * 2) && !Location.inWilderness(player)) {
                         npc.getMovementCoordinator().setCoordinate(
                             npc.isOriginalRandomWalk());
                         continue;

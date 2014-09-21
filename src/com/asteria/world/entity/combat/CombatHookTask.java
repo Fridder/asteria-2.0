@@ -98,6 +98,12 @@ public class CombatHookTask extends Task {
                     CombatFactory.applyPrayer(container, builder);
                 }
 
+                // An attack is going to be made for sure, set the last attacker
+                // for this victim.
+                builder.getVictim().getCombatBuilder().setLastAttacker(
+                    builder.getEntity());
+                builder.getVictim().getLastCombat().reset();
+
                 // Schedule a task based on the combat type. Melee hits are done
                 // right away, ranged hits are done after 2 ticks, and magic
                 // after 3.
