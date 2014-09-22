@@ -609,7 +609,7 @@ public class Player extends Entity {
             this.getPacketBuilder().sendString(
                 "@yel@Level: " + wildernessLevel, 199);
         } else {
-            this.getPacketBuilder().sendContextMenu("Attack", 3);
+            this.getPacketBuilder().sendContextMenu("null", 3);
             this.getPacketBuilder().sendWalkable(-1);
             wildernessInterface = false;
             wildernessLevel = 0;
