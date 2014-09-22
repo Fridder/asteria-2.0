@@ -14,7 +14,6 @@ import com.asteria.world.entity.Animation;
 import com.asteria.world.entity.EntityDeath;
 import com.asteria.world.entity.UpdateFlags.Flag;
 import com.asteria.world.entity.combat.prayer.CombatPrayer;
-import com.asteria.world.entity.combat.weapon.FightType;
 import com.asteria.world.entity.player.content.WeaponInterfaces;
 import com.asteria.world.entity.player.minigame.Minigame;
 import com.asteria.world.entity.player.minigame.Minigames;
@@ -117,7 +116,6 @@ public class PlayerDeath extends EntityDeath<Player> {
         entity.animation(new Animation(65535));
         WeaponInterfaces.assign(entity, entity.getEquipment().get(
             Utility.EQUIPMENT_SLOT_WEAPON));
-        FightType.assign(entity);
         entity.getPacketBuilder().sendMessage(
             entity.getRights().lessThan(PlayerRights.ADMINISTRATOR) ? "Oh dear, you're dead!"
                 : "You are part of administration and therefore unaffected by death.");

@@ -13,7 +13,6 @@ import com.asteria.world.entity.combat.CombatStrategy;
 import com.asteria.world.entity.combat.CombatType;
 import com.asteria.world.entity.combat.range.CombatRangedAmmo;
 import com.asteria.world.entity.combat.weapon.FightStyle;
-import com.asteria.world.entity.combat.weapon.FightType;
 import com.asteria.world.entity.npc.Npc;
 import com.asteria.world.entity.player.Player;
 import com.asteria.world.entity.player.content.WeaponInterfaces;
@@ -240,7 +239,6 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
 
             if (slot == Utility.EQUIPMENT_SLOT_WEAPON) {
                 WeaponInterfaces.assign(player, null);
-                FightType.assign(player);
             }
         }
 

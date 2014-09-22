@@ -58,7 +58,7 @@ public class CombatContainer {
         this.combatType = hitType;
         this.checkAccuracy = checkAccuracy;
         this.hits = prepareHits(hitAmount);
-        this.experience = getSkills();
+        this.experience = getSkills(hitType);
     }
 
     /**
@@ -163,13 +163,16 @@ public class CombatContainer {
     /**
      * Gets all of the skills that will be trained.
      * 
+     * @param type
+     *            the combat type being used.
+     * 
      * @return an array of skills that this attack will train.
      */
-    private final int[] getSkills() {
+    private final int[] getSkills(CombatType type) {
         if (attacker.type() == EntityType.NPC) {
             return new int[] {};
         }
-        return ((Player) attacker).getFightType().getTrainType();
+        return ((Player) attacker).getFightType().getStyle().skills(type);
     }
 
     /**

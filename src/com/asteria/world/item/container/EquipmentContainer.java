@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.asteria.util.Utility;
 import com.asteria.world.entity.UpdateFlags.Flag;
-import com.asteria.world.entity.combat.weapon.FightType;
 import com.asteria.world.entity.player.Player;
 import com.asteria.world.entity.player.content.SkillRequirements;
 import com.asteria.world.entity.player.content.WeaponAnimations;
@@ -127,7 +126,6 @@ public class EquipmentContainer extends ItemContainer {
         if (item.getDefinition().getEquipmentSlot() == Utility.EQUIPMENT_SLOT_WEAPON) {
             WeaponInterfaces.assign(player, item);
             WeaponAnimations.assign(player, item);
-            FightType.assign(player);
             player.setCastSpell(null);
             player.setAutocastSpell(null);
             player.setAutocast(false);
@@ -180,7 +178,6 @@ public class EquipmentContainer extends ItemContainer {
 
         if (equipmentSlot == Utility.EQUIPMENT_SLOT_WEAPON) {
             WeaponInterfaces.assign(player, null);
-            FightType.assign(player);
             player.setCastSpell(null);
             player.setAutocastSpell(null);
             player.setAutocast(false);
