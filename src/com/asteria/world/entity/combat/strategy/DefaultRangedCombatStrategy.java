@@ -171,13 +171,15 @@ public class DefaultRangedCombatStrategy implements CombatStrategy {
      */
     private boolean checkAmmo(Player player) {
 
-        // Get the item in the arrows slot.
-        Item item = player.getEquipment().get(Utility.EQUIPMENT_SLOT_ARROWS);
+        // Get the item in the arrows/weapon slot.
+        Item item = player.getWeapon() == WeaponInterface.DART || player.getWeapon() == WeaponInterface.KNIFE || player.getWeapon() == WeaponInterface.JAVELIN || player.getWeapon() == WeaponInterface.THROWNAXE ? player.getEquipment().get(
+            Utility.EQUIPMENT_SLOT_WEAPON)
+            : player.getEquipment().get(Utility.EQUIPMENT_SLOT_ARROWS);
 
-        // Check if we have an item in the arrows slot.
-        if (item == null) {
+        // Check if we have an item in the arrows/weapon slot.
+        if (item == null || item.getAmount() < 1) {
             player.getPacketBuilder().sendMessage(
-                "You do not have any ammo in your quiver.");
+                "You do not have enough ammo to use this ranged weapon.");
             player.getCombatBuilder().reset();
             return false;
         }
