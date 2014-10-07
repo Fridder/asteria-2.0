@@ -42,7 +42,7 @@ public class DecodeAttackPlayerMagicPacket extends PacketDecoder {
         CombatSpell spell = CombatSpells.getSpell(spellId).orElse(null).getSpell();
         Optional<Minigame> optional = Minigames.get(player);
 
-        if (optional.isPresent()) {
+        if (!optional.isPresent()) {
 
             // Wilderness location check.
             if (!Location.inWilderness(player) || !Location.inWilderness(attacked)) {
