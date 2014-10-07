@@ -847,6 +847,7 @@ public class DecodeClickButtonPacket extends PacketDecoder {
 
                         player.getCombatSpecial().onActivation(player,
                             player.getCombatBuilder().getVictim());
+                        this.cancel();
                     }
                 }.bind(player));
             }
