@@ -2,6 +2,7 @@ package com.asteria.world.entity.player;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
@@ -631,35 +632,21 @@ public class Player extends Entity {
      * Calculates and writes the players bonuses.
      */
     public void writeBonus() {
-        for (int i = 0; i < playerBonus.length; i++) {
-            playerBonus[i] = 0;
-        }
+        Arrays.fill(playerBonus, 0);
 
         for (Item item : equipment) {
             if (item == null || item.getId() < 1 || item.getAmount() < 1) {
                 continue;
             }
-
             for (int i = 0; i < playerBonus.length; i++) {
                 playerBonus[i] += item.getDefinition().getBonus()[i];
             }
         }
 
-        int offset = 0;
-        String send = "";
-
         for (int i = 0; i < playerBonus.length; i++) {
-            if (playerBonus[i] >= 0) {
-                send = Utility.BONUS_NAMES[i] + ": +" + playerBonus[i];
-            } else {
-                send = Utility.BONUS_NAMES[i] + ": -" + Math.abs(playerBonus[i]);
-            }
-
-            if (i == 10) {
-                offset = 1;
-            }
-
-            getPacketBuilder().sendString(send, (1675 + i + offset));
+            getPacketBuilder().sendString(
+                Utility.BONUS_NAMES[i] + ": " + (playerBonus[i] >= 0 ? "+" : "") + playerBonus[i],
+                (1675 + i + (i == 10 || i == 11 ? 1 : 0)));
         }
     }
 
