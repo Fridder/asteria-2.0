@@ -56,11 +56,19 @@ public class DecodeCommandPacket extends PacketDecoder {
                 break;
             case "teleto":
                 World.getPlayerByName(cmd[1].replaceAll("_", " ")).ifPresent(
-                    p -> p.move(p.getPosition()));
+                    p -> {
+                        player.move(p.getPosition());
+                        player.getPacketBuilder().sendMessage(
+                            "You teleport to " + p + "'s position.");
+                    });
                 break;
             case "teletome":
                 World.getPlayerByName(cmd[1].replaceAll("_", " ")).ifPresent(
-                    p -> p.move(p.getPosition()));
+                    p -> {
+                        p.move(player.getPosition());
+                        p.getPacketBuilder().sendMessage(
+                            "You have been teleported to " + player + "'s position.");
+                    });
                 break;
             case "ipban":
                 Player ipban = World.getPlayerByName(
@@ -198,10 +206,6 @@ public class DecodeCommandPacket extends PacketDecoder {
                 WorldObjectManager.register(new WorldObject(
                     Integer.parseInt(cmd[1]), player.getPosition(),
                     Direction.SOUTH));
-                break;
-            case "config":
-                player.getPacketBuilder().sendConfig(Integer.parseInt(cmd[1]),
-                    Integer.parseInt(cmd[2]));
                 break;
             default:
                 player.getPacketBuilder().sendMessage(
