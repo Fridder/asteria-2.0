@@ -555,7 +555,7 @@ public class ItemContainer extends AbstractCollection<Item> {
     @Override
     public <T> T[] toArray(T[] a) {
         throw new UnsupportedOperationException(
-            "This operation is not supported, 'toArray()' should be used instead.");
+            "This operation is not supported, 'container()' should be used instead.");
     }
 
     @Override
@@ -570,7 +570,7 @@ public class ItemContainer extends AbstractCollection<Item> {
 
             @Override
             public boolean hasNext() {
-                return currentIndex++ < items.length;
+                return !(currentIndex + 1 > items.length);
             }
 
             @Override
