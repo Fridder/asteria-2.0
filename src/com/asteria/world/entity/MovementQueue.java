@@ -341,12 +341,19 @@ public class MovementQueue {
                     }
 
                     // Check if we are within distance to attack for combat.
-                    if (entity.getCombatBuilder().isAttacking() && entity.getPosition().withinDistance(
-                        entity.getCombatBuilder().getVictim().getPosition(),
-                        entity.getCombatBuilder().getStrategy().attackDistance(
-                            entity))) {
-                        entity.getMovementQueue().reset();
-                        return;
+                    if (entity.getCombatBuilder().isAttacking()) {
+
+                        if (entity.type() == EntityType.PLAYER) {
+                            entity.getCombatBuilder().determineStrategy();
+                        }
+
+                        if (entity.getPosition().withinDistance(
+                            entity.getCombatBuilder().getVictim().getPosition(),
+                            entity.getCombatBuilder().getStrategy().attackDistance(
+                                entity))) {
+                            entity.getMovementQueue().reset();
+                            return;
+                        }
                     }
 
                     // If we are within 1 square we don't need to move.

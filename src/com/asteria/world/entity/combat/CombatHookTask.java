@@ -49,7 +49,7 @@ public class CombatHookTask extends Task {
             return;
         }
 
-        // If the entity is an npc we redetermine the combat strategy before
+        // If the entity is an player we redetermine the combat strategy before
         // attacking.
         if (builder.getEntity().type() == EntityType.PLAYER) {
             builder.determineStrategy();

@@ -98,7 +98,7 @@ public final class GroundItemManager extends Task implements
         for (Iterator<GroundItem> iterator = itemList.iterator(); iterator.hasNext();) {
             GroundItem next = iterator.next();
 
-            if (next == null) {
+            if (next == null || next.getPlayer() == null || next.getPosition() == null || next.getItem() == null) {
                 continue;
             }
 

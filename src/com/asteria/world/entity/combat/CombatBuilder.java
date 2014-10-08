@@ -70,6 +70,15 @@ public class CombatBuilder {
             return;
         }
 
+        // So we don't move closer.
+        if (entity.type() == EntityType.PLAYER) {
+            determineStrategy();
+
+            if (target.equals(victim) && CombatFactory.checkAttackDistance(this)) {
+                entity.getMovementQueue().reset();
+            }
+        }
+
         // Start following the victim right away.
         entity.getMovementQueue().follow(target);
 
@@ -121,8 +130,9 @@ public class CombatBuilder {
         // Start the cooldown.
         cooldown = 10;
 
-        // Reset the attack timer.
+        // Reset the attack timer and following.
         attackTimer = strategy.attackDelay(entity);
+        entity.setFollowing(false);
     }
 
     /**
