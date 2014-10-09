@@ -454,7 +454,7 @@ public final class CombatFactory {
 
         if (attacker.type() == EntityType.PLAYER && Main.DEBUG) {
             ((Player) attacker).getPacketBuilder().sendMessage(
-                "[DEBUG] Your roll [" + (Math.round(attackCalc * 1000.0) / 1000.0) + "] : Victim's roll [" + (Math.round(defenceCalc * 1000.0) / 1000.0) + "] : Chance to hit [" + (100 * Math.round(hitSucceed * 1000.0) / 1000.0) + "%]");
+                "[DEBUG]: Your roll [" + (Math.round(attackCalc * 1000.0) / 1000.0) + "] : Victim's roll [" + (Math.round(defenceCalc * 1000.0) / 1000.0) + "] : Chance to hit [" + (100 * Math.round(hitSucceed * 1000.0) / 1000.0) + "%]");
         }
         return hitSucceed >= Utility.RANDOM.nextDouble();
     }
@@ -768,11 +768,10 @@ public final class CombatFactory {
         MovementQueue movement = builder.getEntity().getMovementQueue();
 
         // We're moving so increase the distance.
-        if (!movement.isMovementDone()) {
+        if (!movement.isMovementDone() && !movement.isLockMovement() && !builder.getEntity().isFrozen()) {
             distance += 1;
 
             // We're running so increase the distance even more.
-
             // XXX: Might have to change this back to 1 or even remove it, not
             // sure what it's like on actual runescape. Are you allowed to
             // attack when the entity is trying to run away from you?
