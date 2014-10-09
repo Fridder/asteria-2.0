@@ -528,13 +528,36 @@ public class ItemContainer extends AbstractCollection<Item> {
     @Override
     public boolean contains(Object o) {
         Objects.requireNonNull(o);
-
         if (!(o instanceof Item))
             return false;
-
-        Item $item = (Item) o;
+        Item item = (Item) o;
         return Arrays.stream(items).filter(Objects::nonNull).anyMatch(
-            item -> item.getId() == $item.getId() && item.getAmount() >= $item.getAmount());
+            i -> i.getId() == item.getId() && i.getAmount() >= item.getAmount());
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        Objects.requireNonNull(o);
+        if (!(o instanceof Item))
+            return false;
+        return remove((Item) o);
+    }
+
+    @Override
+    public boolean removeAll(Collection<?> c) {
+        Objects.requireNonNull(c);
+        boolean modified = false;
+        for (Object o : c)
+            if (remove(o))
+                modified = true;
+        return modified;
+    }
+
+    @Override
+    public boolean retainAll(Collection<?> c) {
+        Objects.requireNonNull(c);
+        return removeIf(i -> !c.stream().anyMatch(
+            item -> ((Item) item).getId() == i.getId() && ((Item) item).getAmount() >= i.getAmount()));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.asteria.world.entity;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import com.asteria.world.entity.npc.Npc;
@@ -57,7 +58,7 @@ public abstract class Spell {
 
             // We've made it through the checks, so we have the items and can
             // remove them now.
-            player.getInventory().remove(items);
+            player.getInventory().removeAll(Arrays.asList(items));
         }
 
         // Finally, we check the equipment required.
