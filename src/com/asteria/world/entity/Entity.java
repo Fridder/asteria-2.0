@@ -322,6 +322,10 @@ public abstract class Entity {
      *            the damage to be dealt.
      */
     public void dealDamage(Hit hit) {
+        if (flags.get(Flag.HIT)) {
+            dealSecondaryDamage(hit);
+            return;
+        }
         primaryHit = decrementHealth(hit);
         flags.flag(Flag.HIT);
     }
