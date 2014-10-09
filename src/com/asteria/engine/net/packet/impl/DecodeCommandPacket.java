@@ -59,7 +59,7 @@ public class DecodeCommandPacket extends PacketDecoder {
                     p -> {
                         player.move(p.getPosition());
                         player.getPacketBuilder().sendMessage(
-                            "You teleport to " + p + "'s position.");
+                            "You teleport to " + p.getCapitalizedUsername() + "'s position.");
                     });
                 break;
             case "teletome":
@@ -67,7 +67,7 @@ public class DecodeCommandPacket extends PacketDecoder {
                     p -> {
                         p.move(player.getPosition());
                         p.getPacketBuilder().sendMessage(
-                            "You have been teleported to " + player + "'s position.");
+                            "You have been teleported to " + player.getCapitalizedUsername() + "'s position.");
                     });
                 break;
             case "ipban":
