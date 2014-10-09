@@ -140,17 +140,5 @@ public class CombatHitTask extends Task {
 
         // Then we cancel the task.
         this.cancel();
-
-        // Stop combat if we're using magic and not autocasting.
-        if (container.getCombatType() == CombatType.MAGIC) {
-            if (attacker.type() == EntityType.PLAYER) {
-                Player player = (Player) attacker;
-
-                if (!player.isAutocast()) {
-                    player.getCombatBuilder().reset();
-                    player.setCastSpell(null);
-                }
-            }
-        }
     }
 }

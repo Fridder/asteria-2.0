@@ -104,6 +104,17 @@ public class CombatHookTask extends Task {
                     builder.getEntity());
                 builder.getVictim().getLastCombat().reset();
 
+                // Start cooldown if we're using magic and not autocasting.
+                if (container.getCombatType() == CombatType.MAGIC && builder.getEntity().type() == EntityType.PLAYER) {
+                    Player player = (Player) builder.getEntity();
+
+                    if (!player.isAutocast()) {
+                        player.getCombatBuilder().cooldown = 10;
+                        player.setCastSpell(null);
+                        player.setFollowing(false);
+                    }
+                }
+
                 // Schedule a task based on the combat type. Melee hits are done
                 // right away, ranged hits are done after 2 ticks, and magic
                 // after 3.
@@ -122,7 +133,6 @@ public class CombatHookTask extends Task {
             // Reset the attacking entity.
             builder.attackTimer = builder.getStrategy().attackDelay(
                 builder.getEntity());
-            builder.cooldown = 0;
             builder.getEntity().faceEntity(builder.getVictim());
         }
     }

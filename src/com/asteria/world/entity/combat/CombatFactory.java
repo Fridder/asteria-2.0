@@ -693,6 +693,7 @@ public final class CombatFactory {
         if (builder.getVictim().type() == EntityType.PLAYER) {
             if (((Player) builder.getVictim()).getTeleportStage() > 0) {
                 builder.cooldown = 10;
+                builder.getEntity().setFollowing(false);
                 return false;
             }
         }

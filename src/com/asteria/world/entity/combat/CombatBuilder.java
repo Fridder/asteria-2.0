@@ -85,7 +85,13 @@ public class CombatBuilder {
         // If the combat task is running, change targets.
         if (combatTask != null && combatTask.isRunning()) {
             victim = target;
-            cooldown = 0;
+
+            if (entity.type() == EntityType.PLAYER) {
+                Player player = (Player) entity;
+                if (player.isAutocast() || player.getCastSpell() == null || attackTimer < 1) {
+                    cooldown = 0;
+                }
+            }
             return;
         }
 
