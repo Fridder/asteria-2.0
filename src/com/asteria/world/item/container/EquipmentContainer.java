@@ -130,6 +130,8 @@ public class EquipmentContainer extends ItemContainer {
             player.setAutocastSpell(null);
             player.setAutocast(false);
             player.getPacketBuilder().sendConfig(108, 0);
+            player.getPacketBuilder().sendConfig(301, 0);
+            player.setSpecialActivated(false);
         }
 
         player.writeBonus();
@@ -183,6 +185,8 @@ public class EquipmentContainer extends ItemContainer {
             player.setAutocast(false);
             player.getPacketBuilder().sendConfig(108, 0);
             player.getUpdateAnimation().reset();
+            player.getPacketBuilder().sendConfig(301, 0);
+            player.setSpecialActivated(false);
         }
 
         player.writeBonus();
