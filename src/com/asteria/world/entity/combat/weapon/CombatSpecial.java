@@ -117,7 +117,7 @@ public enum CombatSpecial {
             Skills.refresh(player, Skills.DEFENCE);
             Skills.refresh(player, Skills.RANGED);
             Skills.refresh(player, Skills.MAGIC);
-            player.getCombatBuilder().resetAttackTimer();
+            player.getCombatBuilder().cooldown();
             CombatSpecial.drain(player, DRAGON_BATTLEAXE.drainAmount);
         }
 

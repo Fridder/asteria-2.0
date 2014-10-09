@@ -37,7 +37,7 @@ public class DecodeItemInterfacePacket extends PacketDecoder {
             switch (interfaceId) {
 
             case 1688:
-                player.getCombatBuilder().resetAttackTimer();
+                player.getCombatBuilder().cooldown();
                 Skills.fireSkillEvents(player);
                 player.getEquipment().unequipItem(slot, true);
                 break;
@@ -196,7 +196,7 @@ public class DecodeItemInterfacePacket extends PacketDecoder {
             switch (itemId) {
 
             }
-            player.getCombatBuilder().resetAttackTimer();
+            player.getCombatBuilder().cooldown();
             player.getEquipment().equipItem(slot);
             Skills.fireSkillEvents(player);
             break;

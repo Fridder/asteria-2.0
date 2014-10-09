@@ -33,7 +33,7 @@ public class DecodeClickItemPacket extends PacketDecoder {
         }
 
         Skills.fireSkillEvents(player);
-        player.getCombatBuilder().resetAttackTimer();
+        player.getCombatBuilder().cooldown();
 
         if (container == 3214) {
             Item item = player.getInventory().get(slot);

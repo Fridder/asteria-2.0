@@ -121,23 +121,14 @@ public class CombatBuilder {
     }
 
     /**
-     * Resets the attack timer to the value based on the strategy being used.
-     * This method is used primarily for when the player eats food or equips
-     * something and has to wait the designated time again before attacking. If
-     * the player does not have a strategy this method does nothing.
+     * Starts the cooldown sequence.
      */
-    public void resetAttackTimer() {
-
-        // We have no strategy so do nothing.
-        if (strategy == null) {
-            return;
-        }
+    public void cooldown() {
 
         // Start the cooldown.
         cooldown = 10;
 
-        // Reset the attack timer and following.
-        attackTimer = strategy.attackDelay(entity);
+        // Stop following whomever.
         entity.setFollowing(false);
     }
 
@@ -418,11 +409,15 @@ public class CombatBuilder {
             // changes equipment.
             builder.determineStrategy();
 
+            // Reset the attack timer and cooldown so we can attack straight
+            // away.
+            builder.attackTimer = 0;
+            builder.cooldown = 0;
+
             // Stop if we reset the cooldown, or the victim becomes too out of
             // range.
-            if (builder.isCooldown() || !builder.entity.getPosition().isViewableFrom(
+            if (!builder.entity.getPosition().isViewableFrom(
                 victim.getPosition())) {
-
                 builder.reset();
                 this.cancel();
                 return true;
@@ -439,9 +434,6 @@ public class CombatBuilder {
                     return true;
                 }
             }
-
-            // Reset the attack timer so we can attack straight away.
-            builder.attackTimer = 0;
 
             // Start combat if we are in the correct distance.
             return !builder.entity.getPosition().withinDistance(

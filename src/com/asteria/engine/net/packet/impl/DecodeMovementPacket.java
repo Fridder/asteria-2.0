@@ -26,7 +26,7 @@ public class DecodeMovementPacket extends PacketDecoder {
         if (player.getSession().getPacketOpcode() == 248) {
             Skills.fireSkillEvents(player);
             player.setFollowing(false);
-            player.getCombatBuilder().resetAttackTimer();
+            player.getCombatBuilder().cooldown();
             length -= 14;
         }
 
@@ -34,7 +34,7 @@ public class DecodeMovementPacket extends PacketDecoder {
         if (player.getSession().getPacketOpcode() == 164) {
             Skills.fireSkillEvents(player);
             player.setFollowing(false);
-            player.getCombatBuilder().resetAttackTimer();
+            player.getCombatBuilder().cooldown();
             // player.getRS2Packet().sendMessage("164");
 
             // red x click
