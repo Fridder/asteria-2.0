@@ -158,6 +158,10 @@ public class BankContainer extends ItemContainer {
                 "This item can't be withdrawn as a note.");
             player.setWithdrawAsNote(false);
             player.getPacketBuilder().sendConfig(115, 0);
+
+            if (!item.getDefinition().isStackable()) {
+                item.setAmount(player.getInventory().getRemainingSlots());
+            }
         }
 
         super.remove(item, bankSlot);
