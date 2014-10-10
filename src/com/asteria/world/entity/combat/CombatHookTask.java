@@ -52,7 +52,12 @@ public class CombatHookTask extends Task {
         // If the entity is an player we redetermine the combat strategy before
         // attacking.
         if (builder.getEntity().type() == EntityType.PLAYER) {
+            Player player = (Player) builder.getEntity();
             builder.determineStrategy();
+
+            if (player.isSpecialActivated() && player.getCombatSpecial() != null) {
+                builder.attackTimer = 0;
+            }
         }
 
         // Decrement the attack timer.

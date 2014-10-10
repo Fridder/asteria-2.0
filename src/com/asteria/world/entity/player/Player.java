@@ -305,7 +305,7 @@ public class Player extends Entity {
 
     @Override
     public CombatStrategy determineStrategy() {
-        if (specialActivated) {
+        if (specialActivated && castSpell == null) {
             if (combatSpecial.getCombatType() == CombatType.MELEE) {
                 return CombatFactory.newDefaultMeleeStrategy();
             } else if (combatSpecial.getCombatType() == CombatType.RANGED) {
@@ -319,6 +319,8 @@ public class Player extends Entity {
             if (autocast) {
                 castSpell = autocastSpell;
             }
+            getPacketBuilder().sendConfig(301, 0);
+            specialActivated = false;
             return CombatFactory.newDefaultMagicStrategy();
         }
 
