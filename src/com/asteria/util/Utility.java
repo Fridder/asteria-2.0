@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Consumer;
 
 import com.asteria.world.map.Position;
 import com.google.gson.Gson;
@@ -130,36 +129,6 @@ public final class Utility {
     private Utility() {
         throw new UnsupportedOperationException(
             "This class cannot be instantiated!");
-    }
-
-    /**
-     * Performs a loop {@code amount} of times and executes {@code action} on
-     * each loop, passing the value of {@code i} as the parameter. <br>
-     * 
-     * An example of usage is as follows:<br>
-     * <br>
-     * 
-     * 
-     * <pre>
-     * int[] array = new int[30];
-     * Arrays.fill(array, 5);
-     * 
-     * Utility.loop(30, i -&gt; System.out.println(array[i]));
-     * </pre>
-     * 
-     * And that would obviously print "5" to the console for a total of 30
-     * times. <br>
-     * <br>
-     * 
-     * @param amount
-     *            the amount of loops to perform.
-     * @param action
-     *            the action executed on each loop.
-     */
-    public static void loop(int amount, Consumer<Integer> action) {
-        for (int i = 0; i < amount; i++) {
-            action.accept(i);
-        }
     }
 
     /**
