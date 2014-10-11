@@ -453,6 +453,7 @@ public final class Session {
                 Minigames.get(player).ifPresent(
                     m -> m.fireOnForcedLogout(player));
                 World.savePlayer(player);
+                TaskManager.cancelTasks(player.getCombatBuilder());
                 TaskManager.cancelTasks(player);
                 player.getTradeSession().reset(false);
                 player.getPrivateMessage().updateOtherList(false);

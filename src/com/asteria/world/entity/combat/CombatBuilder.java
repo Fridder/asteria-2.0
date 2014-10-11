@@ -97,6 +97,7 @@ public class CombatBuilder {
 
         // Start the event listener implementation that will allow the
         // controller to attack the victim once we're close enough.
+        TaskManager.cancelTasks(this);
         TaskManager.submit(new CombatDistanceListener(this, target));
     }
 
@@ -406,6 +407,7 @@ public class CombatBuilder {
          */
         public CombatDistanceListener(CombatBuilder builder, Entity victim) {
             super();
+            super.bind(builder);
             this.builder = builder;
             this.victim = victim;
         }
@@ -464,6 +466,11 @@ public class CombatBuilder {
                 builder.setCombatTask(new CombatHookTask(builder));
                 TaskManager.submit(builder.getCombatTask());
             }
+        }
+
+        @Override
+        public void onCancel() {
+            System.out.println("stopped");
         }
     }
 }
