@@ -766,9 +766,10 @@ public final class CombatFactory {
         Position victim = builder.getVictim().getPosition();
         int distance = builder.getStrategy().attackDistance(builder.getEntity());
         MovementQueue movement = builder.getEntity().getMovementQueue();
+        MovementQueue otherMovement = builder.getVictim().getMovementQueue();
 
         // We're moving so increase the distance.
-        if (!movement.isMovementDone() && !movement.isLockMovement() && !builder.getEntity().isFrozen()) {
+        if (!movement.isMovementDone() && !otherMovement.isMovementDone() && !movement.isLockMovement() && !builder.getEntity().isFrozen()) {
             distance += 1;
 
             // We're running so increase the distance even more.
