@@ -467,10 +467,5 @@ public class CombatBuilder {
                 TaskManager.submit(builder.getCombatTask());
             }
         }
-
-        @Override
-        public void onCancel() {
-            System.out.println("stopped");
-        }
     }
 }
