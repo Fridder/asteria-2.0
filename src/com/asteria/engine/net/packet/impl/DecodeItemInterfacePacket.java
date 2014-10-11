@@ -37,9 +37,9 @@ public class DecodeItemInterfacePacket extends PacketDecoder {
             switch (interfaceId) {
 
             case 1688:
-                player.getCombatBuilder().cooldown();
                 Skills.fireSkillEvents(player);
                 player.getEquipment().unequipItem(slot, true);
+                player.getCombatBuilder().cooldown(true);
                 break;
             case 5064:
                 player.getBank().depositFromInventory(slot, 1);
@@ -196,9 +196,9 @@ public class DecodeItemInterfacePacket extends PacketDecoder {
             switch (itemId) {
 
             }
-            player.getCombatBuilder().cooldown();
             player.getEquipment().equipItem(slot);
             Skills.fireSkillEvents(player);
+            player.getCombatBuilder().cooldown(true);
             break;
 
         case 214:

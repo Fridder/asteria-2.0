@@ -319,8 +319,6 @@ public class Player extends Entity {
             if (autocast) {
                 castSpell = autocastSpell;
             }
-            getPacketBuilder().sendConfig(301, 0);
-            specialActivated = false;
             return CombatFactory.newDefaultMagicStrategy();
         }
 

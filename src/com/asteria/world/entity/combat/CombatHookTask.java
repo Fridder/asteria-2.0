@@ -52,12 +52,7 @@ public class CombatHookTask extends Task {
         // If the entity is an player we redetermine the combat strategy before
         // attacking.
         if (builder.getEntity().type() == EntityType.PLAYER) {
-            Player player = (Player) builder.getEntity();
             builder.determineStrategy();
-
-            if (player.isSpecialActivated() && player.getCombatSpecial() != null) {
-                builder.attackTimer = 0;
-            }
         }
 
         // Decrement the attack timer.
@@ -85,7 +80,7 @@ public class CombatHookTask extends Task {
             if (builder.getEntity().type() == EntityType.PLAYER) {
                 Player player = (Player) builder.getEntity();
                 player.getPacketBuilder().sendCloseWindows();
-                if (player.isSpecialActivated()) {
+                if (player.isSpecialActivated() && player.getCastSpell() == null) {
                     container = player.getCombatSpecial().container(player,
                         builder.getVictim());
                     CombatSpecial.drain(player,
@@ -114,9 +109,11 @@ public class CombatHookTask extends Task {
                     Player player = (Player) builder.getEntity();
 
                     if (!player.isAutocast()) {
-                        player.getCombatBuilder().cooldown = 10;
+                        if (!player.isSpecialActivated())
+                            player.getCombatBuilder().cooldown = 10;
                         player.setCastSpell(null);
                         player.setFollowing(false);
+                        builder.determineStrategy();
                     }
                 }
 
