@@ -301,7 +301,8 @@ public class ItemContainer extends AbstractCollection<Item> {
      *         all of the argued ID's, <code>false</code> otherwise.
      */
     public boolean containsAll(Item... items) {
-        return Arrays.stream(items).allMatch(item -> contains(item));
+        return Arrays.stream(items).filter(Objects::nonNull).allMatch(
+            item -> contains(item));
     }
 
     /**
@@ -313,7 +314,8 @@ public class ItemContainer extends AbstractCollection<Item> {
      *         all of the argued ID's, <code>false</code> otherwise.
      */
     public boolean containsAny(Item... items) {
-        return Arrays.stream(items).anyMatch(item -> contains(item));
+        return Arrays.stream(items).filter(Objects::nonNull).anyMatch(
+            item -> contains(item));
     }
 
     /***
@@ -527,7 +529,6 @@ public class ItemContainer extends AbstractCollection<Item> {
      */
     @Override
     public boolean contains(Object o) {
-        Objects.requireNonNull(o);
         if (!(o instanceof Item))
             return false;
         Item item = (Item) o;
@@ -537,7 +538,6 @@ public class ItemContainer extends AbstractCollection<Item> {
 
     @Override
     public boolean remove(Object o) {
-        Objects.requireNonNull(o);
         if (!(o instanceof Item))
             return false;
         return remove((Item) o);
