@@ -7,6 +7,7 @@ import com.asteria.engine.task.Task;
 import com.asteria.engine.task.TaskManager;
 import com.asteria.util.Utility;
 import com.asteria.world.entity.Entity.EntityType;
+import com.asteria.world.entity.combat.CombatFactory;
 import com.asteria.world.entity.player.Player;
 import com.asteria.world.map.Position;
 
@@ -345,14 +346,11 @@ public class MovementQueue {
 
                         if (entity.type() == EntityType.PLAYER) {
                             entity.getCombatBuilder().determineStrategy();
-                        }
 
-                        if (entity.getPosition().withinDistance(
-                            entity.getCombatBuilder().getVictim().getPosition(),
-                            entity.getCombatBuilder().getStrategy().attackDistance(
-                                entity))) {
-                            entity.getMovementQueue().reset();
-                            return;
+                            if (CombatFactory.checkAttackDistance(entity.getCombatBuilder())) {
+                                // reset();
+                                return;
+                            }
                         }
                     }
 

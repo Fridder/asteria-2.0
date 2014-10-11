@@ -761,7 +761,7 @@ public final class CombatFactory {
      *            the builder used to perform the check.
      * @return true if the entity is close enough to attack, false otherwise.
      */
-    protected static boolean checkAttackDistance(CombatBuilder builder) {
+    public static boolean checkAttackDistance(CombatBuilder builder) {
         Position attacker = builder.getEntity().getPosition();
         Position victim = builder.getVictim().getPosition();
         int distance = builder.getStrategy().attackDistance(builder.getEntity());

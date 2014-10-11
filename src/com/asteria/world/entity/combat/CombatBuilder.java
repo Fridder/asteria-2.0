@@ -70,6 +70,15 @@ public class CombatBuilder {
             return;
         }
 
+        if (target.equals(victim)) {
+            determineStrategy();
+
+            if (entity.getPosition().withinDistance(victim.getPosition(),
+                strategy.attackDistance(entity))) {
+                entity.getMovementQueue().reset();
+            }
+        }
+
         // Start following the victim right away.
         entity.getMovementQueue().follow(target);
 
