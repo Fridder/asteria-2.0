@@ -7,8 +7,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.asteria.world.entity.player.Player;
+import com.google.common.collect.Iterables;
 
 /**
  * A collection of items that can be manipulated through the functions contained
@@ -99,8 +101,7 @@ public class ItemContainer extends AbstractCollection<Item> {
         if (item.getDefinition().isStackable() || policy == Policy.STACK_ALWAYS && policy != Policy.STACK_NEVER) {
             for (int i = 0; i < items.length; i++) {
                 if (items[i] != null && items[i].getId() == item.getId()) {
-                    set(i, new Item(items[i].getId(),
-                        items[i].getAmount() + item.getAmount()));
+                    set(i, new Item(items[i].getId(), items[i].getAmount() + item.getAmount()));
                     return true;
                 }
             }
@@ -144,8 +145,7 @@ public class ItemContainer extends AbstractCollection<Item> {
                 return false;
             }
             if (stack.getAmount() > item.getAmount()) {
-                set(slotHolder, new Item(stack.getId(),
-                    stack.getAmount() - item.getAmount()));
+                set(slotHolder, new Item(stack.getId(), stack.getAmount() - item.getAmount()));
             } else {
                 set(slotHolder, null);
             }
@@ -301,8 +301,7 @@ public class ItemContainer extends AbstractCollection<Item> {
      *         all of the argued ID's, <code>false</code> otherwise.
      */
     public boolean containsAll(Item... items) {
-        return Arrays.stream(items).filter(Objects::nonNull).allMatch(
-            item -> contains(item));
+        return Arrays.stream(items).filter(Objects::nonNull).allMatch(item -> contains(item));
     }
 
     /**
@@ -314,8 +313,7 @@ public class ItemContainer extends AbstractCollection<Item> {
      *         all of the argued ID's, <code>false</code> otherwise.
      */
     public boolean containsAny(Item... items) {
-        return Arrays.stream(items).filter(Objects::nonNull).anyMatch(
-            item -> contains(item));
+        return Arrays.stream(items).filter(Objects::nonNull).anyMatch(item -> contains(item));
     }
 
     /***
@@ -420,8 +418,7 @@ public class ItemContainer extends AbstractCollection<Item> {
      *         or <code>null</code> if no item was found.
      */
     public Optional<Item> getItem(int itemId) {
-        return Arrays.stream(items).filter(
-            item -> item != null && itemId == item.getId()).findFirst();
+        return Arrays.stream(items).filter(item -> item != null && itemId == item.getId()).findFirst();
     }
 
     /**
@@ -477,9 +474,7 @@ public class ItemContainer extends AbstractCollection<Item> {
      * @return the total amount of items with the argued item ID.
      */
     public int totalAmount(int itemId) {
-        return Arrays.stream(items).filter(
-            item -> item != null && item.getId() == itemId).mapToInt(
-            item -> item.getAmount()).sum();
+        return Arrays.stream(items).filter(item -> item != null && item.getId() == itemId).mapToInt(item -> item.getAmount()).sum();
     }
 
     /**
@@ -532,8 +527,7 @@ public class ItemContainer extends AbstractCollection<Item> {
         if (!(o instanceof Item))
             return false;
         Item item = (Item) o;
-        return Arrays.stream(items).filter(Objects::nonNull).anyMatch(
-            i -> i.getId() == item.getId() && i.getAmount() >= item.getAmount());
+        return Arrays.stream(items).filter(Objects::nonNull).anyMatch(i -> i.getId() == item.getId() && i.getAmount() >= item.getAmount());
     }
 
     @Override
@@ -556,8 +550,7 @@ public class ItemContainer extends AbstractCollection<Item> {
     @Override
     public boolean retainAll(Collection<?> c) {
         Objects.requireNonNull(c);
-        return removeIf(i -> !c.stream().anyMatch(
-            item -> ((Item) item).getId() == i.getId() && ((Item) item).getAmount() >= i.getAmount()));
+        return removeIf(i -> !c.stream().anyMatch(item -> ((Item) item).getId() == i.getId() && ((Item) item).getAmount() >= i.getAmount()));
     }
 
     @Override
@@ -575,10 +568,19 @@ public class ItemContainer extends AbstractCollection<Item> {
         return items.clone();
     }
 
+    /**
+     * Returns an array of the {@link Item}s in this container excluding all
+     * {@code null} elements.
+     * 
+     * @return the safe array of items in this container.
+     */
+    public Item[] toSafeArray() {
+        return Iterables.toArray(Arrays.stream(items).filter(Objects::nonNull).collect(Collectors.toList()), Item.class);
+    }
+
     @Override
     public <T> T[] toArray(T[] a) {
-        throw new UnsupportedOperationException(
-            "This operation is not supported, 'container()' should be used instead.");
+        throw new UnsupportedOperationException("This operation is not supported, 'container()' should be used instead.");
     }
 
     @Override
@@ -599,8 +601,7 @@ public class ItemContainer extends AbstractCollection<Item> {
             @Override
             public Item next() {
                 if (currentIndex >= items.length) {
-                    throw new ArrayIndexOutOfBoundsException(
-                        "Nothing left to iterate over!");
+                    throw new ArrayIndexOutOfBoundsException("Nothing left to iterate over!");
                 }
 
                 int i = currentIndex;
@@ -611,12 +612,10 @@ public class ItemContainer extends AbstractCollection<Item> {
             @Override
             public void remove() {
                 if (lastElementIndex < 0) {
-                    throw new IllegalStateException(
-                        "Can only call 'remove()' once in call to 'next()'.");
+                    throw new IllegalStateException("Can only call 'remove()' once in call to 'next()'.");
                 }
 
-                ItemContainer.this.remove(items[lastElementIndex],
-                    lastElementIndex);
+                ItemContainer.this.remove(items[lastElementIndex], lastElementIndex);
                 currentIndex = lastElementIndex;
                 lastElementIndex = -1;
             }
