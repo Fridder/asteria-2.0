@@ -2,7 +2,6 @@ package com.asteria.world.entity.player;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -155,12 +154,7 @@ public class PlayerDeath extends EntityDeath<Player> {
         // sort the elements from greatest to least value. Then, keep the top
         // "amount" items from the item list and drop the rest.
         if (amount > 0) {
-            Collections.sort(items, Collections.reverseOrder(new Comparator<Item>() {
-                @Override
-                public int compare(Item o1, Item o2) {
-                    return Integer.compare(o1.getDefinition().getGeneralStorePrice(), o2.getDefinition().getGeneralStorePrice());
-                }
-            }));
+            items.sort(Collections.reverseOrder((one, two) -> Integer.compare(one.getDefinition().getGeneralStorePrice(), two.getDefinition().getGeneralStorePrice())));
 
             for (Iterator<Item> it = items.iterator(); it.hasNext();) {
                 Item next = it.next();
