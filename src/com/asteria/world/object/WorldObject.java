@@ -224,8 +224,6 @@ public final class WorldObject {
      *            the position of this object.
      * @param direction
      *            the direction this object is facing.
-     * @param type
-     *            the type of object that this is.
      */
     public WorldObject(int id, Position position, Direction direction) {
         this(id, position, direction, Type.DEFAULT);
